@@ -14,10 +14,14 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './home-body/footer/footer.component';
 import { AboutComponent } from './about/about.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 const routes: Routes = [
   {path :'', component: HomeBodyComponent},
   {path :'HomeBody', component: HomeBodyComponent},
-  {path: 'About', component: AboutComponent}
+  {path: 'About', component: AboutComponent},
+  {path: 'Sign-up', component: SignUpComponent},
+  {path: 'landing-page', component: LandingPageComponent}
 ]
 
 @NgModule({
@@ -28,6 +32,8 @@ const routes: Routes = [
     SearchResultComponent,
     FooterComponent,
     AboutComponent,
+    SignUpComponent,
+    LandingPageComponent,
   ],
   imports: [
     BrowserModule,
