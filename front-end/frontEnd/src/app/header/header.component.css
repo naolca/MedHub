@@ -7,11 +7,11 @@
 }
 
 .header{
-  background-color:rgba(0, 0, 0, 0.158);
+  background-color:rgb(51, 189, 175);
+  margin-bottom: 50px;
 }
 .nav1:hover{
-  color: rgba(11, 53, 100, 0.685);
-
+  color: rgba(11, 53, 100, 0.774);
 }
 a {
   color: black;
@@ -52,6 +52,11 @@ input {
   margin: 1rem;
   font-weight: 400;
   font-size: 1.1rem;
+}
+@media only screen and (min-width: 681px) and (max-width: 800px){
+  .header{
+    width: fit-content;
+  }
 }
 
 

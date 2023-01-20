@@ -1,7 +1,9 @@
+
+
 footer {
   padding: 2rem 5rem;
   margin: 2rem auto 0px auto;
-  background-color:rgba(0, 0, 0, 0.233);
+  background-color:rgb(51, 189, 175);
   color:black;
 }
 .basic-flex {
@@ -53,6 +55,40 @@ footer a {
 .icons{
   margin-right: 15px;
   width: 10px;
+
+}
+@media only screen and (max-width: 680px){
+  .footer-section{
+    padding: 10px;
+
+   }
+   .footer-col ul{
+     margin: 0;
+   }
+   .footer__navigation{
+     margin: 5px;
+     display: grid;
+     grid-template-columns: 1fr 1fr ;
+   }
+
+
+
+}
+
+
+@media only screen and (min-width: 681px) and (max-width: 722px) {
+  .footer-section{
+   padding: 10px;
+
+  }
+  .footer-col ul{
+    margin: 0;
+  }
+  .footer__navigation{
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 
 }
 
