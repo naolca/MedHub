@@ -1,4 +1,5 @@
-export class CreateMedicineDto {
+export class Medicine {
+    id: number;
     genericName: string;
     brandName: string;
     batchNo: string;

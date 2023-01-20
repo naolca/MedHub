@@ -1,59 +1,122 @@
 import { Injectable } from '@nestjs/common';
-import { Medicine } from './medicine.model';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
-import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
+import { UpdateMedicineDto } from './dto/update-medicine.dto';
+import { Medicine } from './entities/medicine.entity';
 
 @Injectable()
 export class MedicinesService {
-    private medicines: Medicine[] = [];
-    private id: number = 0;
+  private medicines = [];
+  private id = 0;
 
-    getAllMedicines(): Medicine[] {
-        return this.medicines;
+  /**
+   * createMedicine - created a new medicine
+   * @param createMedicineDto Contains all information needed to document a new medicine
+   * @returns Newly created Medicine object
+   */
+  createMedicine(createMedicineDto: CreateMedicineDto): Medicine {
+    const { genericName, brandName, batchNo, amount, receivingAddress, storageCondition, expiryDate} = createMedicineDto;
+
+    let medicine: Medicine = {
+      id: this.id,
+      genericName: genericName,
+      brandName: brandName,
+      batchNo: batchNo,
+      amount: amount,
+      receivingAddress: receivingAddress,
+      storageCondition: storageCondition,
+      expiryDate: expiryDate,
     }
 
-    getMedicineById(id: number): Medicine {
-        for (const medicine of this.medicines) {
-            if (medicine.id == id) {
-                return medicine;
-            }
-        }
+    this.id += 1;
+
+    this.medicines.push(medicine);
+
+    return medicine;
+  }
+
+  /**
+   * getAllMedicines - returns all medicines
+   * @returns a collection of Medicine
+   */
+  getAllMedicines() {
+    return this.medicines;
+  }
+
+  /**
+   * getMedicine - find one medicine.
+   * @param id id of the wanted medicine
+   * @returns a Medicine or 404 resource not found.
+   */
+  getMedicine(id: number): Medicine {
+    let medicineId = 0;
+    
+    // Iterate through and find the medicine with the given id
+    for (medicineId = 0; medicineId < this.medicines.length; medicineId++) {
+      if (medicineId == id)
+        break
     }
 
-    getFilteredMedicines(filterDto: GetMedicinesFilterDto): Medicine[] {
-        let medicines: Medicine[] = this.getAllMedicines();
+    return this.medicines[medicineId];
+  }
 
-        const { key } = filterDto;
+  /**
+   * updateMedicine - updated the medicine 
+   * @param id id of the medicine to be updated
+   * @param updateMedicineDto Contains all information needed to document a medicine
+   * @returns Medicne object or 404
+   */
+  updateMedicine(id: number, updateMedicineDto: UpdateMedicineDto): Medicine {
+    const { genericName, brandName, batchNo, amount, receivingAddress, storageCondition, expiryDate} = updateMedicineDto;
 
-        if (key) {
-            medicines = medicines.filter(medicine => 
-                medicine.brandName.includes(key) || 
-                medicine.genericName.includes(key),
-                );
-        }
-        
-        return medicines;
+    // find the medicine to be updated
+    let medicine: Medicine = this.getMedicine(id);
+
+    // Check which parameters are to be updated and update them
+    if (genericName)
+      medicine.genericName = genericName;
+    if (brandName)
+      medicine.brandName = brandName;
+    if (batchNo)
+      medicine.batchNo = batchNo;
+    if (amount)
+      medicine.amount = amount;
+    if (receivingAddress)
+      medicine.receivingAddress = receivingAddress;
+    if (storageCondition)
+      medicine.storageCondition = storageCondition;
+    if (expiryDate)
+      medicine.expiryDate = expiryDate;
+    
+    return medicine;
+  }
+
+  /**
+   * removeMedicine - removes the medicine given by the ID
+   * @param id the id to identify the medicine
+   * @returns 200 None or 404 not found
+   */
+  removeMedicine(id: number) {
+    let medicineId = 0;
+    
+    // Iterate through and find the medicine with the given id
+    for (medicineId = 0; medicineId < this.medicines.length; medicineId++) {
+      if (medicineId == id)
+        break
     }
 
-    createMedicine(createMedicineDto: CreateMedicineDto): Medicine {
-        this.id += 1;
-        const {genericName, brandName, batchNumber, ammount, receivingAddress, storageConditions, expiryDate, pharmacyName, pharmacyLocation} = createMedicineDto;
+    this.medicines.splice(medicineId, 1);
+  }
 
-        const medicine: Medicine = {
-            id: this.id,
-            genericName,
-            brandName,
-            batchNumber,
-            ammount,
-            receivingAddress,
-            storageConditions,
-            expiryDate,
-            pharmacyName,
-            pharmacyLocation,
-        }
+  /**
+   * searches the database for medicines containing the search key
+   * @param searchKey string to search the database with
+   * @returns a list of medicines
+   */
+  searchByName(searchKey: string): Medicine[] {
+    let medicines: Medicine[] = this.medicines;
 
-        this.medicines.push(medicine);
+    medicines.filter(medicine => medicine.brandName.includes(searchKey) || medicine.genericName.includes(searchKey));
 
-        return medicine;
-    }
+    return medicines;
+  }
 }
