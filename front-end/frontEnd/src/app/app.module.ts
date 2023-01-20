@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,13 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { FooterComponent } from './home-body/footer/footer.component';
-import { AboutComponent } from './about/about.component';
-const routes: Routes = [
-  {path :'', component: HomeBodyComponent},
-  {path :'HomeBody', component: HomeBodyComponent},
-  {path: 'About', component: AboutComponent}
-]
 
 @NgModule({
   declarations: [
@@ -26,8 +18,6 @@ const routes: Routes = [
     HeaderComponent,
     HomeBodyComponent,
     SearchResultComponent,
-    FooterComponent,
-    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +27,6 @@ const routes: Routes = [
     MatAutocompleteModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
-import { Route } from '@angular/router';
 
 @Component({
   selector: 'app-root',
