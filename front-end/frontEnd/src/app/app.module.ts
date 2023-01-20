@@ -12,6 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+import { LoginComponent } from './login/login.component';
+=======
 import { FooterComponent } from './home-body/footer/footer.component';
 import { AboutComponent } from './about/about.component';
 
@@ -27,12 +30,16 @@ const routes: Routes = [
   {path: 'landing-page', component: LandingPageComponent}
 ]
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeBodyComponent,
     SearchResultComponent,
+
+    LoginComponent,
+
     FooterComponent,
     AboutComponent,
 
@@ -40,6 +47,7 @@ const routes: Routes = [
     LandingPageComponent,
 
     LoginComponent,
+
 
   ],
   imports: [
