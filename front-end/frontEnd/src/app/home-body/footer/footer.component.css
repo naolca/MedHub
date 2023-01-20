@@ -3,7 +3,7 @@
 footer {
   padding: 2rem 5rem;
   margin: 2rem auto 0px auto;
-  background-color:rgb(51, 189, 175);
+  background: linear-gradient(to bottom right, rgb(81, 193, 245), rgb(41, 65, 252));
   color:black;
 }
 .basic-flex {

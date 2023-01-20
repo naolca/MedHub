@@ -7,7 +7,7 @@
 }
 
 .header{
-  background-color:rgb(51, 189, 175);
+  background: linear-gradient(to bottom right, rgb(81, 193, 245), rgb(41, 65, 252));
   margin-bottom: 50px;
 }
 .nav1:hover{
