@@ -104,7 +104,7 @@ export class MedicinesService {
         break
     }
 
-    this.medicines.splice(medicineId, 1);
+    this.medicines.splice(medicineId + 1, 1);
   }
 
   /**
@@ -115,7 +115,10 @@ export class MedicinesService {
   searchByName(searchKey: string): Medicine[] {
     let medicines: Medicine[] = this.medicines;
 
-    medicines.filter(medicine => medicine.brandName.includes(searchKey) || medicine.genericName.includes(searchKey));
+    medicines = medicines.filter(medicine => {
+      console.log(medicine.brandName, searchKey, medicine.brandName.includes(searchKey));
+      medicine.brandName.includes(searchKey) || medicine.genericName.includes(searchKey)
+    });
 
     return medicines;
   }

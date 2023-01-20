@@ -54,8 +54,8 @@ export class MedicinesController {
    * @returns void
    */
   @Delete(':id')
-  removeMedicine(@Param('id') id: string): void {
-    return this.medicinesService.removeMedicine(+id);
+  removeMedicine(@Param('id') id: number): void {
+    return this.medicinesService.removeMedicine(id);
   }
 
   /**

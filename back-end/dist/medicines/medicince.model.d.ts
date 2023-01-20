@@ -1,4 +1,5 @@
-export declare class CreateMedicineDto {
+export interface Medicine {
+    id: number;
     genericName: string;
     brandName: string;
     batchNo: string;
