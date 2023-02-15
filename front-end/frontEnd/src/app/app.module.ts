@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.component';
 import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.component';
+import { AdminDisplayPharmaciesComponent } from './admin-page/admin-display-pharmacies/admin-display-pharmacies.component';
 
 const routes: Routes = [
 
@@ -41,6 +42,11 @@ const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'search-result', component: SearchResultComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'adminHomePage', component: AdminPageComponent },
+  {
+    path: 'adminDisplayPharmacies',
+    component: AdminDisplayPharmaciesComponent,
+  },
 ];
 
 
@@ -63,6 +69,7 @@ const routes: Routes = [
     AdminPageComponent,
     AdminHeaderComponent,
     AdminFooterComponent,
+    AdminDisplayPharmaciesComponent,
   ],
   imports: [
     BrowserModule,
