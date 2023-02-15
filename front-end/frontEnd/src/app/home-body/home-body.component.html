@@ -1,107 +1,166 @@
-
+<app-header></app-header>
 <div class="container">
   <h1 class="firstpart">Welcome to MedHub</h1>
   <img
     src="https://t3.ftcdn.net/jpg/03/22/50/68/360_F_322506810_Y8h8m2grFEPrrvRdUZqHB5hrv2kfVLrt.jpg"
     alt="medicine image"
   />
-
 </div>
-<form class="navbar-form navbar-right" role="search">
+<form
+  (submit)="search(input.value)"
+  class="navbar-form navbar-right"
+  role="search"
+>
   <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for a drug">
-      <span class="input-group-btn">
-          <button type="submit" class="btn btn-default">
-          <span class="glyphicon glyphicon-search"></span>
-          </button>
-      </span>
-      <div class="button"><button>Search</button></div>
+    <input
+      #input
+      type="text"
+      class="form-control"
+      placeholder="Search for a drug"
+    />
 
-
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-default">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </span>
+    <div class="button"><button>Search</button></div>
   </div>
-
 </form>
+<!-- <div class="workSpace">
+  {{ data.value }}
+</div> -->
 <section class="Eacc-section">
   <div class="Eacc__section-wrapper">
-      <p class="Eacc-header">Medical drugs  </p>
-      <p class="Eacc-description">
-        Medicines are chemicals or compounds used to cure, halt, or prevent disease; ease symptoms; or help in the diagnosis of illnesses. Advances in medicines have enabled doctors to cure many diseases and save lives.
-
-      These days, medicines come from a variety of sources. Many were developed from substances found in nature, and even today many are extracted from plants.
-
-      Some medicines are made in labs by mixing together a number of chemicals. Others, like penicillin, are byproducts of organisms such as fungus. And a few are even biologically engineered by inserting genes into bacteria that make them produce the desired substance.
-      </p>
+    <p class="Eacc-header">Medical drugs</p>
+    <p class="Eacc-description">
+      Medicines are chemicals or compounds used to cure, halt, or prevent
+      disease; ease symptoms; or help in the diagnosis of illnesses. Advances in
+      medicines have enabled doctors to cure many diseases and save lives. These
+      days, medicines come from a variety of sources. Many were developed from
+      substances found in nature, and even today many are extracted from plants.
+      Some medicines are made in labs by mixing together a number of chemicals.
+      Others, like penicillin, are byproducts of organisms such as fungus. And a
+      few are even biologically engineered by inserting genes into bacteria that
+      make them produce the desired substance.
+    </p>
   </div>
 </section>
 <section class="Eacc-section">
   <div class="Eacc__section-wrapper">
-      <p class="Eacc-header">Medical news  </p>
-      <p class="Eacc-description">
-        The Federal Ministry of Health (MoH) officially launched a nationwide integrated measles vaccination campaign on 22 December 2022 in an event officiated by honourable State Minister of Health Dr Dereje Duguma in Siriti.
-       Health Center at Akaki Kaliti Sub-City in Addis Ababa. The national launching event was conducted in the presence of government officials, donors, immunization partners, religious and community leaders and the media.
-       On 26 December 2022, the Ethiopian Ministry of Health led a consultative and advocacy meeting on the implementation of the National Cholera Elimination Plan (NCP), which aims to reduce cholera cases in to zero by 2028,
-         and which was launched in May 2022 during the 75th World Health Assembly in Geneva Switzerland.
-
-
-      </p>
-
-
-
+    <p class="Eacc-header">Medical news</p>
+    <p class="Eacc-description">
+      The Federal Ministry of Health (MoH) officially launched a nationwide
+      integrated measles vaccination campaign on 22 December 2022 in an event
+      officiated by honourable State Minister of Health Dr Dereje Duguma in
+      Siriti. Health Center at Akaki Kaliti Sub-City in Addis Ababa. The
+      national launching event was conducted in the presence of government
+      officials, donors, immunization partners, religious and community leaders
+      and the media. On 26 December 2022, the Ethiopian Ministry of Health led a
+      consultative and advocacy meeting on the implementation of the National
+      Cholera Elimination Plan (NCP), which aims to reduce cholera cases in to
+      zero by 2028, and which was launched in May 2022 during the 75th World
+      Health Assembly in Geneva Switzerland.
+    </p>
   </div>
 </section>
 
 <div class="news__section-rightside">
   <div>
-    <img src="https://www.mymed.com/image/3430/medicalarticle/800" alt="medicine1">
+    <img
+      src="https://www.mymed.com/image/3430/medicalarticle/800"
+      alt="medicine1"
+    />
   </div>
-  <img src="https://www.mymed.com/image/3430/medicalarticle/800" alt="medicine2">
-  <img src="https://thumbs.dreamstime.com/b/antibiotics-diagnosis-written-white-piece-paper-syringe-vaccine-drugs-62238514.jpg" alt="medicine3">
-  <img src="https://thumbs.dreamstime.com/b/selective-focus-blue-white-capsules-pill-spread-white-background-shadow-global-healthcare-concept-antibiotics-119323198.jpg" alt="medicine4">
-  <img src="https://thumbs.dreamstime.com/b/antibiotics-tube-penicillium-fungi-white-background-34830195.jpg" alt="medicine5">
-  <img src="https://thumbs.dreamstime.com/b/tablets-antibiotics-different-blisterpack-97626546.jpg" alt="medicine6">
+  <img
+    src="https://www.mymed.com/image/3430/medicalarticle/800"
+    alt="medicine2"
+  />
+  <img
+    src="https://thumbs.dreamstime.com/b/antibiotics-diagnosis-written-white-piece-paper-syringe-vaccine-drugs-62238514.jpg"
+    alt="medicine3"
+  />
+  <img
+    src="https://thumbs.dreamstime.com/b/selective-focus-blue-white-capsules-pill-spread-white-background-shadow-global-healthcare-concept-antibiotics-119323198.jpg"
+    alt="medicine4"
+  />
+  <img
+    src="https://thumbs.dreamstime.com/b/antibiotics-tube-penicillium-fungi-white-background-34830195.jpg"
+    alt="medicine5"
+  />
+  <img
+    src="https://thumbs.dreamstime.com/b/tablets-antibiotics-different-blisterpack-97626546.jpg"
+    alt="medicine6"
+  />
 </div>
 <section class="Companies-section">
   <div class="Companies__section-wrapper">
-      <h1 class="Companies-header">Popular Drugs</h1>
-      <div class="Companies-content-flex1 basic-flex">
-          <div class="Company">
-              <img src="https://assets.sainsburys-groceries.co.uk/gol/8075006/1/640x640.jpg" alt="paractamol">
-              <span>Paracetamol</span>
-          </div>
-          <div class="Company">
-              <img src="https://barakat-pharma.com/wp-content/uploads/2019/09/all_0056_Amoxicillin.jpg" alt="amoxicillin">
-              <span>amoxicillin</span>
-          </div>
-          <div class="Company">
-              <img src="https://m.media-amazon.com/images/I/71Fge-G+eaL.jpg" alt="declofenac">
-              <span>declofenac</span>
-          </div>
-           <div class="Company">
-              <img src="https://cdn01.pharmeasy.in/dam/products_otc/W81928/prolyte-ors-orange-drink-sachet-21-gm-2-1654249497.jpg" alt="orall rehaydration salt">
-              <span>oral rehaydration salt</span>
-          </div>
-          <div class="Company">
-            <img src="https://krosylpharma.com/wp-content/uploads/2021/01/Co-Trimoxazole-Tablets.png" alt="Co-trimoxazole">
-            <span>Co-trimoxazole</span>
-          </div>
-          <div class="Company">
-            <img src="data:image/jpeg;base64,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" alt="ciprofloxacin">
-            <span>ciprofloxacin</span>
-          </div>
-          <div class="Company">
-            <img src="https://dvmed.com/assets/images/DVM-100467.jpg" alt="metronidazole">
-            <span>metronidazole</span>
-          </div>
-          <div class="Company">
-            <img src="http://cdn.shopify.com/s/files/1/0257/1884/9583/products/21104_1200x630.jpg?v=1659586497" alt="cloxacillin">
-            <span>cloxacillin</span>
-          </div>
-          <div class="Company">
-            <img src="https://www.britishchemist.co.uk/wp-content/uploads/2021/03/ferrous-sulphate-28.png" alt="iron sulphate tablets">
-            <span>iron sulphate tablets</span>
-          </div>
+    <h1 class="Companies-header">Popular Drugs</h1>
+    <div class="Companies-content-flex1 basic-flex">
+      <div class="Company">
+        <img
+          src="https://assets.sainsburys-groceries.co.uk/gol/8075006/1/640x640.jpg"
+          alt="paractamol"
+        />
+        <span>Paracetamol</span>
       </div>
+      <div class="Company">
+        <img
+          src="https://barakat-pharma.com/wp-content/uploads/2019/09/all_0056_Amoxicillin.jpg"
+          alt="amoxicillin"
+        />
+        <span>amoxicillin</span>
+      </div>
+      <div class="Company">
+        <img
+          src="https://m.media-amazon.com/images/I/71Fge-G+eaL.jpg"
+          alt="declofenac"
+        />
+        <span>declofenac</span>
+      </div>
+      <div class="Company">
+        <img
+          src="https://cdn01.pharmeasy.in/dam/products_otc/W81928/prolyte-ors-orange-drink-sachet-21-gm-2-1654249497.jpg"
+          alt="orall rehaydration salt"
+        />
+        <span>oral rehaydration salt</span>
+      </div>
+      <div class="Company">
+        <img
+          src="https://krosylpharma.com/wp-content/uploads/2021/01/Co-Trimoxazole-Tablets.png"
+          alt="Co-trimoxazole"
+        />
+        <span>Co-trimoxazole</span>
+      </div>
+      <div class="Company">
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="ciprofloxacin"
+        />
+        <span>ciprofloxacin</span>
+      </div>
+      <div class="Company">
+        <img
+          src="https://dvmed.com/assets/images/DVM-100467.jpg"
+          alt="metronidazole"
+        />
+        <span>metronidazole</span>
+      </div>
+      <div class="Company">
+        <img
+          src="http://cdn.shopify.com/s/files/1/0257/1884/9583/products/21104_1200x630.jpg?v=1659586497"
+          alt="cloxacillin"
+        />
+        <span>cloxacillin</span>
+      </div>
+      <div class="Company">
+        <img
+          src="https://www.britishchemist.co.uk/wp-content/uploads/2021/03/ferrous-sulphate-28.png"
+          alt="iron sulphate tablets"
+        />
+        <span>iron sulphate tablets</span>
+      </div>
+    </div>
   </div>
 </section>
-
-
+<app-footer></app-footer>
