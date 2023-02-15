@@ -1,26 +1,57 @@
 import { Injectable } from '@nestjs/common';
-import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateReservationDTO } from './dto/create-reservation.dto';
+import { Reservation } from './entities/reservation.entity';
+
+
 
 @Injectable()
 export class ReservationsService {
-  create(createReservationDto: CreateReservationDto) {
-    return 'This action adds a new reservation';
+  
+    constructor(
+      @InjectRepository(Reservation)
+      private readonly reservationsRepository: Repository<Reservation>,
+    ) {}
+
+  /*
+  helps to fetch all reservations regardless of the pharmacy 
+  */
+  async findAll(): Promise<Reservation[]> {
+    return await this.reservationsRepository.find();
   }
 
-  findAll() {
-    return `This action returns all reservations`;
+  // needs to be refactored since the schema has changed !!!
+  async create(createReservationDto: CreateReservationDTO): Promise<{}> {
+    const reservation = new Reservation();
+    reservation.pharmacyId = createReservationDto.pharmacyId;
+    reservation.phoneNumber = createReservationDto.phoneNumber;
+    const reserved= await this.reservationsRepository.save(reservation);
+    if (reserved){
+      return {"status":true,"reserved":reserved}
+    }
+    return {"status":true,"reserved":[]}
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} reservation`;
+ 
+    /**
+    helps in the user side to getAll of his reservations .... not sure if it works 
+  **/
+  async findByPhoneNumber(phoneNumber: string): Promise<Reservation[]> {
+    return await this.reservationsRepository.find({ where: { phoneNumber } });
   }
-
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`;
+ 
+  /**
+   helps to send all reservation for a pharmacy with an id   
+  **/
+  // Again, regressed since schema was changed
+  async findByPharmacyId(pharmacyId: string): Promise<Reservation[]> {
+    return await this.reservationsRepository.find({ where: { pharmacyId } });
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} reservation`;
+  /**
+   helps to send all reservation for a medicine with an id   
+  **/
+  // Again, regressed since schema was changed
+  async findByMedicineId(medicineId: string): Promise<Reservation[]> {
+    return await this.reservationsRepository.find({ where: { medicineId } });
   }
 }

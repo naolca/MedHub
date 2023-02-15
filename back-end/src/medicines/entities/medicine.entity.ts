@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";
+import { Reservation } from "src/reservations/entities/reservation.entity";
+import { Column, Entity, PrimaryGeneratedColumn, Unique, OneToMany, ManyToMany } from "typeorm";
 
 @Entity()
 @Unique([ "brandName" ])
@@ -26,4 +28,10 @@ export class Medicine {
 
     @Column()
     expiryDate: string;
+
+    @OneToMany(() => Reservation, reservation => reservation.medicine)
+    reservations: Reservation[];
+
+    @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines)
+    pharmacies: Pharmacy[];
 }

@@ -14,7 +14,9 @@ export class Privilage {
     @Column()
     privilageType: string;
 
+    @ManyToMany(() => Employee, employee => employee.privilages)
     employees: Employee[];
 
+    @ManyToMany(() => Administrator, administrator => administrator.privilages)
     administrators: Administrator[];
 }
