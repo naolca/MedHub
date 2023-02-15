@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container">
   <h1 class="firstpart">Welcome to MedHub</h1>
   <img
@@ -5,13 +6,17 @@
     alt="medicine image"
   />
 </div>
-<form class="navbar-form navbar-right" role="search">
+<form
+  (submit)="search(input.value)"
+  class="navbar-form navbar-right"
+  role="search"
+>
   <div class="input-group">
     <input
+      #input
       type="text"
       class="form-control"
       placeholder="Search for a drug"
-      (input)="changeSearchValue($event)"
     />
 
     <span class="input-group-btn">
@@ -158,3 +163,4 @@
     </div>
   </div>
 </section>
+<app-footer></app-footer>

@@ -19,13 +19,18 @@ import { AboutComponent } from './about/about.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.component';
+import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.component';
 
 const routes: Routes = [
-  { path: '', component: HomeBodyComponent },
+  { path: '', component: LandingPageComponent },
   { path: 'HomeBody', component: HomeBodyComponent },
   { path: 'About', component: AboutComponent },
   { path: 'Sign-up', component: SignUpComponent },
   { path: 'landing-page', component: LandingPageComponent },
+  { path: 'search-result', component: SearchResultComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
@@ -44,6 +49,9 @@ const routes: Routes = [
     LandingPageComponent,
 
     LoginComponent,
+    AdminPageComponent,
+    AdminHeaderComponent,
+    AdminFooterComponent,
   ],
   imports: [
     BrowserModule,

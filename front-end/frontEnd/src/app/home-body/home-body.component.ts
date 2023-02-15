@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { MyDataService } from '../service/my-data.service';
+import { Router } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -9,43 +12,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   templateUrl: './home-body.component.html',
   styleUrls: ['./home-body.component.css'],
 })
-export class HomeBodyComponent implements OnInit {
-  options = ['ibuprofine', 'amoxaxiline', 'amoprazole'];
-  data: any = '';
+export class HomeBodyComponent {
+  constructor(
+    private mydata: MyDataService,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
-  constructor(private mydata: MyDataService, private http: HttpClient) {}
+  search(value: string) {
+    // this.http.get(`http://localhost:3000?q=${value}`).subscribe((data: any) => {
+    //   this.router.navigate(['/search-results'], { state: { data } });
+    // });
 
-  ngOnInit(): void {
-    this.getGames();
-  }
-
-  searchValue: string = '';
-
-  changeSearchValue(eventData: Event) {
-    // console.log((<HTMLInputElement>eventData.target).value);
-    this.searchValue = (<HTMLInputElement>eventData.target).value;
-  }
-
-  getGames(): any {
-    const url =
-      'https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random';
-
-    const headers = new Headers({
-      accept: 'application/json',
-      'X-RapidAPI-Key': '11d5de5304mshf1d577e08b131ecp13f630jsnb1149a912b8c',
-      'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
-    });
-    this.http
-      .get(url, {
-        headers: new HttpHeaders({
-          accept: 'application/json',
-          'X-RapidAPI-Key':
-            '11d5de5304mshf1d577e08b131ecp13f630jsnb1149a912b8c',
-          'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
-        }),
-      })
-      .subscribe((res) => {
-        this.data = res;
-      });
+    this.router.navigate(['/search-result'], { state: { value } });
   }
 }
