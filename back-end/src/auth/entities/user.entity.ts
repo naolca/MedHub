@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 
 @Entity()
 @Unique(['username'])
-export class User extends BaseEntity {
+export abstract class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
