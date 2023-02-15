@@ -25,30 +25,14 @@ import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.com
 import { AdminDisplayPharmaciesComponent } from './admin-page/admin-display-pharmacies/admin-display-pharmacies.component';
 
 const routes: Routes = [
-
-  {path :'', component: LandingPageComponent},
-  {path :'HomeBody', component: HomeBodyComponent},
-  {path: 'About', component: AboutComponent},
-  {path: 'Sign-up', component: SignUpComponent},
-  {path: 'landing-page', component: LandingPageComponent},
-  {path: 'loginpage', component: LoginComponent},
-  {path: 'search-result', component: SearchResultComponent},
-]
-
   { path: '', component: LandingPageComponent },
   { path: 'HomeBody', component: HomeBodyComponent },
   { path: 'About', component: AboutComponent },
   { path: 'Sign-up', component: SignUpComponent },
   { path: 'landing-page', component: LandingPageComponent },
+  { path: 'loginpage', component: LoginComponent },
   { path: 'search-result', component: SearchResultComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'adminHomePage', component: AdminPageComponent },
-  {
-    path: 'adminDisplayPharmacies',
-    component: AdminDisplayPharmaciesComponent,
-  },
 ];
-
 
 @NgModule({
   declarations: [
