@@ -20,11 +20,13 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  {path :'', component: HomeBodyComponent},
+  {path :'', component: LandingPageComponent},
   {path :'HomeBody', component: HomeBodyComponent},
   {path: 'About', component: AboutComponent},
   {path: 'Sign-up', component: SignUpComponent},
-  {path: 'landing-page', component: LandingPageComponent}
+  {path: 'landing-page', component: LandingPageComponent},
+  {path: 'loginpage', component: LoginComponent},
+  {path: 'search-result', component: SearchResultComponent},
 ]
 
 @NgModule({
