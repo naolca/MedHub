@@ -24,6 +24,16 @@ import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.com
 import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.component';
 
 const routes: Routes = [
+
+  {path :'', component: LandingPageComponent},
+  {path :'HomeBody', component: HomeBodyComponent},
+  {path: 'About', component: AboutComponent},
+  {path: 'Sign-up', component: SignUpComponent},
+  {path: 'landing-page', component: LandingPageComponent},
+  {path: 'loginpage', component: LoginComponent},
+  {path: 'search-result', component: SearchResultComponent},
+]
+
   { path: '', component: LandingPageComponent },
   { path: 'HomeBody', component: HomeBodyComponent },
   { path: 'About', component: AboutComponent },
@@ -32,6 +42,7 @@ const routes: Routes = [
   { path: 'search-result', component: SearchResultComponent },
   { path: 'login', component: LoginComponent },
 ];
+
 
 @NgModule({
   declarations: [

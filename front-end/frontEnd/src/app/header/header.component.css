@@ -7,7 +7,13 @@
 }
 
 .header{
-  background: linear-gradient(to bottom right, rgb(81, 193, 245), rgb(41, 65, 252));
+  background-image: linear-gradient(
+    to right,
+    #52b3f8,
+    #37c7f3,
+    #1ab3b8,
+    #15bacd
+  );
   margin-bottom: 50px;
 }
 .nav1:hover{

@@ -8,6 +8,22 @@
           <div class="card">
             <div class="card-body p-4 p-md-5">
               <h3 class="mb-4 pb-2">MedHUB</h3>
+
+              <form class="row g-3 needs-validation row-gap-3 ms-1 me-1" novalidate #pharmacyform="ngForm" (ngSubmit)="onpharmacycreate(pharmacyform.value)">
+                <div class="col-md-4">
+                  <label for="validationCustom01" class="form-label">First name</label>
+                  <input type="text" name="fname" class="form-control" id="validationCustom01" placeholder="MED" required ngModel>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="validationCustom02" class="form-label">Last name</label>
+                  <input type="text" name="lname" class="form-control" id="validationCustom02" placeholder="HUB" required ngModel>
+                  <div class="valid-feedback">
+                    Looks good!
+                  </div>
+
               <form
                 class="row g-3 needs-validation row-gap-3 ms-1 me-1"
                 novalidate
@@ -37,12 +53,17 @@
                     required
                   />
                   <div class="valid-feedback">Looks good!</div>
+
                 </div>
                 <div class="col-md-4">
                   <label for="validationCustomUsername" class="form-label"
                     >Username</label
                   >
                   <div class="input-group has-validation">
+
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <input type="text" name="uname" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required ngModel>
+
                     <span class="input-group-text" id="inputGroupPrepend"
                       >@</span
                     >
@@ -52,7 +73,7 @@
                       id="validationCustomUsername"
                       aria-describedby="inputGroupPrepend"
                       required
-                    />
+
                     <div class="invalid-feedback">
                       Please choose a username.
                     </div>
@@ -60,6 +81,14 @@
                 </div>
                 <div class="row">
                   <div class="col">
+
+                   <label for="validationCustomUsername" class="form-label">Email</label>
+                    <input type="text" name="email" class="form-control" placeholder="email" aria-label="email" ngModel>
+                  </div>
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label">phone no</label>
+                    <input type="number" name="phone" class="form-control" placeholder="phone no" aria-label="phone no" ngModel>
+
                     <label for="validationCustomUsername" class="form-label"
                       >Email</label
                     >
@@ -80,10 +109,30 @@
                       placeholder="phone no"
                       aria-label="phone no"
                     />
+
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
+
+                    <label for="validationCustomUsername" class="form-label">pharmacy name</label>
+                    <input type="text" name="phname" class="form-control" placeholder="pharmacy name" aria-label="name of pharmachy" ngModel>
+                  </div>
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label">location </label>
+                    <input type="text" name="loname" class="form-control" placeholder="address" aria-label="Address" ngModel >
+                  </div>
+                </div>
+                <input type="submit" value="submit" class="btn btn-primary pt-6" >
+
+
+
+              </form>
+
+
+
+
+
                     <label for="validationCustomUsername" class="form-label"
                       >pharmacy name</label
                     >
@@ -111,6 +160,7 @@
               <button type="button" class="btn btn-primary pt-6">
                 sign in
               </button>
+
             </div>
           </div>
         </div>
