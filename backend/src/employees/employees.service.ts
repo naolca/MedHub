@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
@@ -19,20 +19,25 @@ export class EmployeesService {
         private jwtService: JwtService,
     ) {}
 
-    async signUp(createEmployeeDto: CreateEmployeeDto): Promise<void> {
+    async signUp(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
         const employee: Employee = new Employee();
 
         employee.name = createEmployeeDto.name;
         employee.employeeType = createEmployeeDto.employeeType;
         employee.pharmacy = await this.pharmaciesService.findOne( createEmployeeDto.pharmacyId );
 
+        if (!employee.pharmacy) {
+            throw new BadRequestException(`Pharmacy with the id ${createEmployeeDto.pharmacyId} does not exist.`);
+        }
+
         employee.salt = await bcrypt.genSalt();
         employee.username = createEmployeeDto.username;
         employee.password = await this.hashPassword(createEmployeeDto.password, employee.salt);
 
         try {
-            await this.employeeRepository.save(employee);
+            return await this.employeeRepository.save(employee);
         } catch (error) {
+            console.log(error.code);
             if (error.code == "23505") {
                 throw new ConflictException(`User with the username ${employee.username} already exists. Pick another username.`);
             } else {

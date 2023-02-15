@@ -48,7 +48,7 @@ export class MedicinesController {
    * @returns A promise that resolves to the newly created medicine.
    */
   @Post()
-  @UseGuards(AuthGuard())
+  @UseGuards(AuthGuard('jwt'))
   async createMedicine(
     @Body() createMedicineDto: CreateMedicineDto,
     @GetPharmacy() pharmacy: Pharmacy

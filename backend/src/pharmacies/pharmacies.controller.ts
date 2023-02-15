@@ -11,7 +11,7 @@ export class PharmaciesController {
   constructor(private readonly pharmaciesService: PharmaciesService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
+  // @UseGuards(AuthGuard('jwt'))
   create(@Body() createPharmacyDto: CreatePharmacyDto, @GetAdministrator() administrator) {
     return this.pharmaciesService.create(createPharmacyDto);
   }
@@ -26,6 +26,12 @@ export class PharmaciesController {
   findNearestPharmacies( @Query('latitude') latitude: number,
           @Query('longitude') longitude: number,){
     return this.pharmaciesService.findNearestPharmacies(latitude,longitude);
+  }
+
+  //you can use http://localhost/pharmacies?latitude=<latitude-value>&longitude=<longitude-value>
+  @Get("/all/allofthem")
+  getAll() {
+    return this.pharmaciesService.findAll();
   }
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePharmacyDto: UpdatePharmacyDto) {

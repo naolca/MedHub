@@ -24,8 +24,6 @@ import { Administrator } from './entities/administrator.entity';
     JwtStrategy,
   ],
   exports: [
-    JwtStrategy,
-    PassportModule,
   ],
 })
 export class AdministratorsModule {}

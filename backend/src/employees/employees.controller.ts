@@ -2,13 +2,14 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } fro
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { EmployeeCredentialsDto } from './dto/employee-credentials.dto';
+import { Employee } from './entities/employee.entity';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Post('/signup')
-  signUp(@Body(ValidationPipe) createEmployeeDto: CreateEmployeeDto): Promise<void> {
+  signUp(@Body(ValidationPipe) createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
     return this.employeesService.signUp(createEmployeeDto);
   }
 

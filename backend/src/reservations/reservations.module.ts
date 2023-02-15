@@ -5,12 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Reservation } from './entities/reservation.entity';
 import { MedicinesModule } from 'src/medicines/medicines.module';
 import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([ Reservation ]),
     MedicinesModule,
     PharmaciesModule,
+    PassportModule,
   ],
   controllers: [ReservationsController],
   providers: [ReservationsService]

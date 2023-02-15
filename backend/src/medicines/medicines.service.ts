@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
 import { Repository } from 'typeorm';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
@@ -10,7 +11,8 @@ import { Medicine } from './entities/medicine.entity';
 export class MedicinesService {
     constructor(
         @InjectRepository(Medicine)
-        private medicineRepository: Repository<Medicine>
+        private medicineRepository: Repository<Medicine>,
+        private pharmaciesService: PharmaciesService,
     ) {}
 
     /**
@@ -70,12 +72,12 @@ export class MedicinesService {
         medicine.receivingAddress = createMedicineDto.receivingAddress;
         medicine.storageConditions = createMedicineDto.storageConditions;
 
+        let pharmacy_temp: Pharmacy = await this.pharmaciesService.findOne(createMedicineDto.pharmacyId);
+        medicine.addPharmacy(pharmacy_temp);
+
         if (! await this.medicineRepository.save(medicine) ) {
             medicine = await this.getFilteredMedicines( { key: createMedicineDto.brandName } )[0];
         }
-
-        medicine.addPharmacy(pharmacy);
-
         return medicine;
     }
 }
