@@ -1,8 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { MedicinesService } from './medicines.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
 import { Medicine } from './entities/medicine.entity';
+import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { GetPharmacy } from 'src/employees/get-pharmacy.decorator';
+import { PassportModule } from '@nestjs/passport';
 
 @Controller('medicines')
 export class MedicinesController {
@@ -44,8 +48,12 @@ export class MedicinesController {
    * @returns A promise that resolves to the newly created medicine.
    */
   @Post()
-  async createMedicine(@Body() createMedicineDto: CreateMedicineDto): Promise<Medicine> {
-    return await this.medicinesService.createMedicine(createMedicineDto);
+  @UseGuards(AuthGuard())
+  async createMedicine(
+    @Body() createMedicineDto: CreateMedicineDto,
+    @GetPharmacy() pharmacy: Pharmacy
+    ): Promise<Medicine> {
+    return await this.medicinesService.createMedicine(createMedicineDto, pharmacy);
   }
 
 }

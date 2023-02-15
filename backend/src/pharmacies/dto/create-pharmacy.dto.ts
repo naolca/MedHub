@@ -1,5 +1,7 @@
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Unique } from "typeorm";
 
+@Unique([ "pharmacyTinNo", "pharmacyName" ])
 export class CreatePharmacyDto {
     @IsString()
     @IsNotEmpty()
@@ -20,6 +22,4 @@ export class CreatePharmacyDto {
     @IsNumber()
     @IsNotEmpty()
     longitude: number;
-
-
 }

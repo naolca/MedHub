@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { PrivilagesModule } from './privilages/privilages.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { PharmaciesModule } from './pharmacies/pharmacies.module';
 import { DatabaseModule } from './database/database.module';
-import { AuthModule } from './auth/auth.module';
 import { MedicinesModule } from './medicines/medicines.module';
+import { AdministratorsModule } from './administrators/administrators.module';
+import { EmployeesModule } from './employees/employees.module';
 
 @Module({
-  imports: [ MedicinesModule, DatabaseModule, AuthModule, PharmaciesModule, ReservationsModule, PrivilagesModule ],
+  imports: [ MedicinesModule, DatabaseModule, PharmaciesModule, ReservationsModule, AdministratorsModule, EmployeesModule ],
 })
 export class AppModule {}

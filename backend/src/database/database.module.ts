@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Administrator } from 'src/auth/entities/administrator.entity';
-import { Employee } from 'src/auth/entities/employee.entity';
-import { User } from 'src/auth/entities/user.entity';
+import { Administrator } from 'src/administrators/entities/administrator.entity';
+import { Employee } from 'src/employees/entities/employee.entity';
 import { Medicine } from 'src/medicines/entities/medicine.entity';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
-import { Privilage } from 'src/privilages/entities/privilage.entity';
 import { Reservation } from 'src/reservations/entities/reservation.entity';
 
 @Module({
@@ -17,7 +15,7 @@ import { Reservation } from 'src/reservations/entities/reservation.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'medhub',
-      entities: [User, Administrator, Employee, Medicine, Pharmacy, Privilage, Reservation],
+      entities: [ Employee, Medicine, Pharmacy, Reservation, Administrator ],
       synchronize: true,
     }),
   ],

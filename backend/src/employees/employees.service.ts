@@ -1,19 +1,18 @@
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import * as bcrypt from "bcrypt";
+import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { EmployeeCredentialsDto } from './dto/employee-credentials.dto';
-import { Employee } from './entities/employee.entity';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { JwtEmployeePayload } from './jwt-employee-payload.interface';
-import { map } from 'rxjs';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
+import { Repository } from 'typeorm';
+import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { Employee } from './entities/employee.entity';
+import * as bcrypt from "bcrypt";
+import { EmployeeCredentialsDto } from './dto/employee-credentials.dto';
+import { JwtEmployeePayload } from './jwt-employee-payload.interface';
 
 @Injectable()
-export class AuthService {
-    constructor (
+export class EmployeesService {
+  constructor (
         @InjectRepository(Employee)
         private employeeRepository: Repository<Employee>,
         private pharmaciesService: PharmaciesService,
@@ -24,8 +23,8 @@ export class AuthService {
         const employee: Employee = new Employee();
 
         employee.name = createEmployeeDto.name;
-        employee.pharmacy = createEmployeeDto.pharmacy;
-        employee.privilages = createEmployeeDto.privilages;
+        employee.employeeType = createEmployeeDto.employeeType;
+        employee.pharmacy = await this.pharmaciesService.findOne( createEmployeeDto.pharmacyId );
 
         employee.salt = await bcrypt.genSalt();
         employee.username = createEmployeeDto.username;
@@ -52,7 +51,7 @@ export class AuthService {
         const payload: JwtEmployeePayload = {
             username: employee.username,
             pharmacy: employee.pharmacy.pharmacyName,
-            privilages: employee.privilages.map(privilage => privilage.privilageName)
+            privilage: employee.employeeType,
         };
         const accessToken = await this.jwtService.sign(payload);
 

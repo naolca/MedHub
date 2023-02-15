@@ -1,0 +1,21 @@
+POST http://localhost:3000/employees/signup
+Content-Type: application/json
+
+{
+    "username": "ffekirnew9",
+    "name": "Fianu",
+    "password": "Ab!123456",
+    "pharmacyId": 0,
+    "employeeType": ""
+}
+
+# POST http://localhost:3000/pharmacies/
+# Content-Type: application/json
+
+# {
+#     "pharmacyName": "pharmacy-1",
+#     "pharmaTinNo":1,
+#     "branchNum":1,
+#     "latitude": 100,
+#     "longitude": 150
+# }

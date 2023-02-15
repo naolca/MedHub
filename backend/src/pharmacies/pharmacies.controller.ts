@@ -1,21 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { PharmaciesService } from './pharmacies.service';
 import { CreatePharmacyDto } from './dto/create-pharmacy.dto';
 import { UpdatePharmacyDto } from './dto/update-pharmacy.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetAdministrator } from 'src/administrators/get-administrator.decorator';
+import { PassportModule } from '@nestjs/passport';
 
 @Controller('pharmacies')
 export class PharmaciesController {
   constructor(private readonly pharmaciesService: PharmaciesService) {}
 
   @Post()
-  create(@Body() createPharmacyDto: CreatePharmacyDto) {
+  @UseGuards(AuthGuard())
+  create(@Body() createPharmacyDto: CreatePharmacyDto, @GetAdministrator() administrator) {
     return this.pharmaciesService.create(createPharmacyDto);
   }
-
-  // @Get()
-  // findAll() {
-  //   return this.pharmaciesService.findAll();
-  // }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

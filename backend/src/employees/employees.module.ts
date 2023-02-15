@@ -1,17 +1,11 @@
 import { Module } from '@nestjs/common';
-
-import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './jwt.strategy';
-
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
-
-import { User } from './entities/user.entity';
-import { Administrator } from './entities/administrator.entity';
+import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './jwt.strategy';
+import { EmployeesService } from './employees.service';
 import { Employee } from './entities/employee.entity';
+import { EmployeesController } from './employees.controller';
 import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
 
 @Module({
@@ -23,12 +17,12 @@ import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
         expiresIn: 3600,
       },
     }),
-    TypeOrmModule.forFeature([ User, Administrator, Employee ]),
+    TypeOrmModule.forFeature([ Employee ]),
     PharmaciesModule,
   ],
-  controllers: [AuthController],
+  controllers: [EmployeesController],
   providers: [
-    AuthService,
+    EmployeesService,
     JwtStrategy,
   ],
   exports: [
@@ -36,4 +30,4 @@ import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
     PassportModule,
   ],
 })
-export class AuthModule {}
+export class EmployeesModule {}
