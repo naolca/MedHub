@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { Route } from '@angular/router';
@@ -10,11 +10,12 @@ import { Route } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'frontEnd';
+  message: any = '';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.fetchMedicine();
+    // this.getGames();
   }
 
   onMedicineFetch() {
@@ -30,7 +31,8 @@ export class AppComponent implements OnInit {
         medicines
       )
       .subscribe((res) => {
-        console.log(res);
+        this.message = res;
+        console.log(this.message);
       });
   }
 
@@ -49,6 +51,29 @@ export class AppComponent implements OnInit {
         })
       )
 
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  getGames(): any {
+    const url =
+      'https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random';
+
+    const headers = new Headers({
+      accept: 'application/json',
+      'X-RapidAPI-Key': '11d5de5304mshf1d577e08b131ecp13f630jsnb1149a912b8c',
+      'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
+    });
+    this.http
+      .get(url, {
+        headers: new HttpHeaders({
+          accept: 'application/json',
+          'X-RapidAPI-Key':
+            '11d5de5304mshf1d577e08b131ecp13f630jsnb1149a912b8c',
+          'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
+        }),
+      })
       .subscribe((res) => {
         console.log(res);
       });

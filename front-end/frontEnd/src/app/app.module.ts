@@ -12,14 +12,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 import { FooterComponent } from './home-body/footer/footer.component';
 import { AboutComponent } from './about/about.component';
 
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
+import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.component';
+import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.component';
 
 const routes: Routes = [
+
   {path :'', component: LandingPageComponent},
   {path :'HomeBody', component: HomeBodyComponent},
   {path: 'About', component: AboutComponent},
@@ -29,12 +34,25 @@ const routes: Routes = [
   {path: 'search-result', component: SearchResultComponent},
 ]
 
+  { path: '', component: LandingPageComponent },
+  { path: 'HomeBody', component: HomeBodyComponent },
+  { path: 'About', component: AboutComponent },
+  { path: 'Sign-up', component: SignUpComponent },
+  { path: 'landing-page', component: LandingPageComponent },
+  { path: 'search-result', component: SearchResultComponent },
+  { path: 'login', component: LoginComponent },
+];
+
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeBodyComponent,
     SearchResultComponent,
+
+    LoginComponent,
+
     FooterComponent,
     AboutComponent,
 
@@ -42,7 +60,9 @@ const routes: Routes = [
     LandingPageComponent,
 
     LoginComponent,
-
+    AdminPageComponent,
+    AdminHeaderComponent,
+    AdminFooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +72,7 @@ const routes: Routes = [
     MatAutocompleteModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],
