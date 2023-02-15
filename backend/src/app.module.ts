@@ -7,6 +7,6 @@ import { AuthModule } from './auth/auth.module';
 import { MedicinesModule } from './medicines/medicines.module';
 
 @Module({
-  imports: [MedicinesModule, DatabaseModule, AuthModule, PharmaciesModule, ReservationsModule, PrivilagesModule],
+  imports: [ MedicinesModule, DatabaseModule, AuthModule, PharmaciesModule, ReservationsModule, PrivilagesModule ],
 })
 export class AppModule {}

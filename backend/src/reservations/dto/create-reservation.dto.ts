@@ -1,7 +1,7 @@
 import { IsNotEmpty,IsString,IsPhoneNumber, IsOptional } 
 from  'class-validator';
 
-export class CreateReservationDTO {
+export class CreateReservationDto {
     @IsNotEmpty()
     medicineId: number;
     

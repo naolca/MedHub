@@ -62,8 +62,8 @@ export class PharmaciesService {
         return sortedPharmacies.slice(0, limit);
   }
   
-  findOne(id: number) {
-    return `This action returns a #${id} pharmacy`;
+  async findOne(pharmacyId: number): Promise<Pharmacy> {
+    return await this.pharmacyRepository.findOne( { where: { pharmacyId } } );
   }
 
   update(id: number, updatePharmacyDto: UpdatePharmacyDto) {
