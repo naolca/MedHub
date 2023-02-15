@@ -13,8 +13,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { LoginComponent } from './login/login.component';
-=======
 import { FooterComponent } from './home-body/footer/footer.component';
 import { AboutComponent } from './about/about.component';
 
@@ -23,13 +21,12 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  {path :'', component: HomeBodyComponent},
-  {path :'HomeBody', component: HomeBodyComponent},
-  {path: 'About', component: AboutComponent},
-  {path: 'Sign-up', component: SignUpComponent},
-  {path: 'landing-page', component: LandingPageComponent}
-]
-
+  { path: '', component: HomeBodyComponent },
+  { path: 'HomeBody', component: HomeBodyComponent },
+  { path: 'About', component: AboutComponent },
+  { path: 'Sign-up', component: SignUpComponent },
+  { path: 'landing-page', component: LandingPageComponent },
+];
 
 @NgModule({
   declarations: [
@@ -47,8 +44,6 @@ const routes: Routes = [
     LandingPageComponent,
 
     LoginComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -58,7 +53,7 @@ const routes: Routes = [
     MatAutocompleteModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],
