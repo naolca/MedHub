@@ -24,6 +24,7 @@ import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.com
 import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.component';
 import { AdminDisplayPharmaciesComponent } from './admin-page/admin-display-pharmacies/admin-display-pharmacies.component';
 import { AdminDisplayPendingRegistationComponent } from './admin-page/admin-display-pending-registation/admin-display-pending-registation.component';
+import { ManagerPageComponent } from './manager-page/manager-page.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'adminDisplayPharmacies',
     component: AdminDisplayPharmaciesComponent,
+  },
+  {
+    path: 'managersPage',
+    component: ManagerPageComponent,
   },
 ];
 
