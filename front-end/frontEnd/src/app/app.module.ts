@@ -23,6 +23,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.component';
 import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.component';
 import { AdminDisplayPharmaciesComponent } from './admin-page/admin-display-pharmacies/admin-display-pharmacies.component';
+import { AdminDisplayPendingRegistationComponent } from './admin-page/admin-display-pending-registation/admin-display-pending-registation.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -32,6 +33,14 @@ const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'loginpage', component: LoginComponent },
   { path: 'search-result', component: SearchResultComponent },
+  {
+    path: 'adminDisplayPendingRegistration',
+    component: AdminDisplayPendingRegistationComponent,
+  },
+  {
+    path: 'adminDisplayPharmacies',
+    component: AdminDisplayPharmaciesComponent,
+  },
 ];
 
 @NgModule({
@@ -54,6 +63,7 @@ const routes: Routes = [
     AdminHeaderComponent,
     AdminFooterComponent,
     AdminDisplayPharmaciesComponent,
+    AdminDisplayPendingRegistationComponent,
   ],
   imports: [
     BrowserModule,
