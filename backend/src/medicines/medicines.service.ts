@@ -29,6 +29,18 @@ export class MedicinesService {
         return medicines;
     }
 
+    async getMedicineByIdSorted(id: number, { latitude, longitude }): Promise<Medicine> {
+        const medicine = await this.medicineRepository.findOne({ where: { id } });
+
+        if (!medicine) {
+            throw new NotFoundException(`The requested medicine doesn't exist.`);
+        }
+
+        medicine.pharmacies = this.pharmaciesService.sortPharmacies(medicine.pharmacies, { latitude, longitude });
+        
+        return medicine;
+    }
+
     async getMedicineById(id: number): Promise<Medicine> {
         const medicine = await this.medicineRepository.findOne({ where: { id } });
 
@@ -73,10 +85,11 @@ export class MedicinesService {
         medicine.storageConditions = createMedicineDto.storageConditions;
 
         let pharmacy_temp: Pharmacy = await this.pharmaciesService.findOne(createMedicineDto.pharmacyId);
-        medicine.addPharmacy(pharmacy_temp);
+        
 
         if (! await this.medicineRepository.save(medicine) ) {
             medicine = await this.getFilteredMedicines( { key: createMedicineDto.brandName } )[0];
+            medicine.addPharmacy(pharmacy_temp);
         }
         return medicine;
     }

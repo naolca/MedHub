@@ -37,8 +37,33 @@ export class MedicinesController {
    * @returns A promise that resolves to a medicine.
    */
   @Get('/:id')
+  async getMedicineByIdSorted(
+    @Param('id') id: number, 
+    @Query('latitude') latitude: number, 
+    @Query('longitude') longitude: number
+    ): Promise<Medicine> {
+
+    const medicine: Medicine = await this.medicinesService.getMedicineByIdSorted(id, { latitude, longitude });
+
+    console.log(medicine.pharmacies);
+    
+    return medicine;
+  }
+
+  /**
+   * Gets the medicine with the given ID.
+   * 
+   * @param id The id of the medicine needed.
+   * @throws {NotFoundException} if the medicine with the given ID was not found.
+   * @returns A promise that resolves to a medicine.
+   */
+  @Get('/:id')
   async getMedicineById(@Param('id') id: number): Promise<Medicine> {
-    return await this.medicinesService.getMedicineById(id);
+    const medicine: Medicine = await this.medicinesService.getMedicineById(id);
+
+    console.log(medicine.pharmacies);
+    
+    return medicine;
   }
 
   /**
@@ -48,7 +73,7 @@ export class MedicinesController {
    * @returns A promise that resolves to the newly created medicine.
    */
   @Post()
-  @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard('jwt'))
   async createMedicine(
     @Body() createMedicineDto: CreateMedicineDto,
     @GetPharmacy() pharmacy: Pharmacy

@@ -27,12 +27,7 @@ export class PharmaciesController {
           @Query('longitude') longitude: number,){
     return this.pharmaciesService.findNearestPharmacies(latitude,longitude);
   }
-
-  //you can use http://localhost/pharmacies?latitude=<latitude-value>&longitude=<longitude-value>
-  @Get("/all/allofthem")
-  getAll() {
-    return this.pharmaciesService.findAll();
-  }
+  
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePharmacyDto: UpdatePharmacyDto) {
     return this.pharmaciesService.update(+id, updatePharmacyDto);

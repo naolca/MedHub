@@ -29,37 +29,42 @@ export class PharmaciesService {
     return await this.pharmacyRepository.find();
   }
 
+  sortPharmacies(pharmacies: Pharmacy[], target: {latitude: number, longitude: number}) {
+    const { latitude, longitude } = target;
+
+    const earthRadius = 6371;
+    const radianLat = (Math.PI / 180) * latitude;
+    const radianLng = (Math.PI / 180) * longitude;
+
+    const sortedPharmacies = pharmacies
+        .map(pharmacy => {
+          const pharmacyLat = (Math.PI / 180) * pharmacy.latitude;
+          const pharmacyLng = (Math.PI / 180) * pharmacy.longitude;
+  
+          const distance =
+            earthRadius *
+            Math.acos(
+              Math.cos(radianLat) *
+                Math.cos(pharmacyLat) *
+                Math.cos(pharmacyLng - radianLng) +
+                Math.sin(radianLat) * Math.sin(pharmacyLat),
+            );
+  
+          return { ...pharmacy, distance };
+        })
+        .sort((a, b) => a.distance - b.distance);
+  
+      return sortedPharmacies;
+  }
+
   async findNearestPharmacies(
         latitude: number,
         longitude: number,
         limit = 5,
       ): Promise<Pharmacy[]> {
-
-        const earthRadius = 6371;
-        const radianLat = (Math.PI / 180) * latitude;
-        const radianLng = (Math.PI / 180) * longitude;
     
         const pharmacies = await this.pharmacyRepository.find();
-    
-        const sortedPharmacies = pharmacies
-          .map(pharmacy => {
-            const pharmacyLat = (Math.PI / 180) * pharmacy.latitude;
-            const pharmacyLng = (Math.PI / 180) * pharmacy.longitude;
-    
-            const distance =
-              earthRadius *
-              Math.acos(
-                Math.cos(radianLat) *
-                  Math.cos(pharmacyLat) *
-                  Math.cos(pharmacyLng - radianLng) +
-                  Math.sin(radianLat) * Math.sin(pharmacyLat),
-              );
-    
-            return { ...pharmacy, distance };
-          })
-          .sort((a, b) => a.distance - b.distance);
-    
-        return sortedPharmacies.slice(0, limit);
+        return this.sortPharmacies(pharmacies, { latitude, longitude });
   }
   
   async findOne(pharmacyId: number): Promise<Pharmacy> {
