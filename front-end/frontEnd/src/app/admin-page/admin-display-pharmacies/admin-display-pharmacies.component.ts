@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { GetPharmaciesService } from 'src/app/service/get-pharmacies.service';
 
 @Component({
   selector: 'app-admin-display-pharmacies',
@@ -9,16 +10,23 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AdminDisplayPharmaciesComponent implements OnInit {
   data: any;
+  pharmacies: any[];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private getPharmaciesService: GetPharmaciesService
+  ) {}
 
   ngOnInit(): void {
-    console.log(localStorage);
+    //  this.getPharmaciesService.getPharmacies().subscribe((response:any[]) => {
+    //   this.pharmacies=response;
+    //  })
+    this.pharmacies = this.getPharmaciesService.getPharmacies();
   }
   getPharmacies() {
-    // this.http.get(`http://localhost:3000?q=${value}`).subscribe((data: any) => {
-    //   this.data = data;
-    // });
-    this.data = 'firaol is awesome';
+    // // this.http.get(`http://localhost:3000?q=${value}`).subscribe((data: any) => {
+    // //   this.data = data;
+    // // });
+    // this.data = 'firaol is awesome';
   }
 }
