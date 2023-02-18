@@ -2,9 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } f
 import { PharmaciesService } from './pharmacies.service';
 import { CreatePharmacyDto } from './dto/create-pharmacy.dto';
 import { UpdatePharmacyDto } from './dto/update-pharmacy.dto';
-import { AuthGuard } from '@nestjs/passport';
 import { GetAdministrator } from 'src/administrators/get-administrator.decorator';
-import { PassportModule } from '@nestjs/passport';
 
 @Controller('pharmacies')
 export class PharmaciesController {
@@ -14,7 +12,8 @@ export class PharmaciesController {
   // @UseGuards(AuthGuard('jwt'))
   create(@Body() createPharmacyDto: CreatePharmacyDto, @GetAdministrator() administrator) {
     return this.pharmaciesService.create(createPharmacyDto);
-  }
+  }]
+  
 
   @Get(':id')
   findOne(@Param('id') id: string) {
