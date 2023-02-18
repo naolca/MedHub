@@ -1,5 +1,5 @@
 import { IsString, MinLength, MaxLength, Matches } from 'class-validator';
-import { EmployeeType } from '../enums/employee-type.enum';
+import { EmployeeRoleTypes } from '../roles/employee.roles';
 
 export class CreateEmployeeDto {
     @IsString()
@@ -25,5 +25,5 @@ export class CreateEmployeeDto {
 
     pharmacyId: number;
 
-    employeeType: EmployeeType;
+    role: EmployeeRoleTypes;
 }

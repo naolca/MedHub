@@ -1,4 +1,4 @@
-import { EmployeeType } from "./enums/employee-type.enum";
+import { EmployeeRoleTypes } from "./roles/employee.roles";
 
 /**
  * The JWT will contain the payload username, pharmacy name and privilages in the payload.
@@ -6,5 +6,5 @@ import { EmployeeType } from "./enums/employee-type.enum";
 export interface JwtEmployeePayload {
     username: string;
     pharmacy: string;
-    privilage: EmployeeType;
+    role: EmployeeRoleTypes;
 }

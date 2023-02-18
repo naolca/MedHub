@@ -19,11 +19,15 @@ export class EmployeesService {
         private jwtService: JwtService,
     ) {}
 
+    async getAllEmployees(): Promise<Employee[]> {
+        return await this.employeeRepository.find();
+    }
+
     async signUp(createEmployeeDto: CreateEmployeeDto): Promise<Employee> {
         const employee: Employee = new Employee();
 
         employee.name = createEmployeeDto.name;
-        employee.employeeType = createEmployeeDto.employeeType;
+        employee.role = createEmployeeDto.role;
         employee.pharmacy = await this.pharmaciesService.findOne( createEmployeeDto.pharmacyId );
 
         if (!employee.pharmacy) {
@@ -56,7 +60,7 @@ export class EmployeesService {
         const payload: JwtEmployeePayload = {
             username: employee.username,
             pharmacy: employee.pharmacy.pharmacyName,
-            privilage: employee.employeeType,
+            role: employee.role,
         };
         const accessToken = await this.jwtService.sign(payload);
 

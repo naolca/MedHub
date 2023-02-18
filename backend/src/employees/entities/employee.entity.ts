@@ -2,7 +2,7 @@ import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "t
 import * as bcrypt from "bcrypt";
 
 import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";
-import { EmployeeType } from "../enums/employee-type.enum";
+import { EmployeeRoleTypes } from "../roles/employee.roles";
 
 @Entity()
 export class Employee extends BaseEntity {
@@ -17,6 +17,9 @@ export class Employee extends BaseEntity {
 
     @Column()
     salt: string;
+
+    @Column({ default: EmployeeRoleTypes.Employee })
+    role: EmployeeRoleTypes;
 
     async checkPassword(password: string): Promise<boolean> {
         const hash = await bcrypt.hash(password, this.salt);
@@ -33,16 +36,14 @@ export class Employee extends BaseEntity {
 
     checkPharmacy(pharmacy: Pharmacy): boolean {
         if (!pharmacy) {
-            return ( false );
+            return (false);
         }
 
-        if ( !(pharmacy.employees.includes( this )) ) {
-            return ( false );
+        if (!(pharmacy.employees.includes(this))) {
+            return (false);
         }
 
-        return ( true );
+        return (true);
     }
-
-    @Column()
-    employeeType: EmployeeType;
 }
+
