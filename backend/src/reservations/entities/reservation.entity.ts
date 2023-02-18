@@ -11,13 +11,21 @@ export class Reservation  {
   @ManyToOne(() => Pharmacy, pharmacy => pharmacy.reservations, {
     cascade: true
   })
-  pharmacy: Pharmacy[];
+  pharmacy: Pharmacy;
 
   @ManyToOne(() => Medicine, medicine => medicine.reservations, {
     cascade: true
   })
-  medicine: Medicine[];
+  medicine: Medicine;
 
   @Column()
   phoneNumber: string;
+
+  addMedicine(medicine: Medicine) {
+    this.medicine = medicine;
+  }
+
+  addPharmacy(pharmacy: Pharmacy) {
+    this.pharmacy = pharmacy;
+  }
 }

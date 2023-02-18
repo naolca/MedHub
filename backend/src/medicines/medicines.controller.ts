@@ -1,8 +1,12 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { MedicinesService } from './medicines.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
 import { Medicine } from './entities/medicine.entity';
+import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { AuthGuard } from '@nestjs/passport';
+import { GetPharmacy } from 'src/employees/get-pharmacy.decorator';
+import { PassportModule } from '@nestjs/passport';
 
 @Controller('medicines')
 export class MedicinesController {
@@ -33,8 +37,33 @@ export class MedicinesController {
    * @returns A promise that resolves to a medicine.
    */
   @Get('/:id')
+  async getMedicineByIdSorted(
+    @Param('id') id: number, 
+    @Query('latitude') latitude: number, 
+    @Query('longitude') longitude: number
+    ): Promise<Medicine> {
+
+    const medicine: Medicine = await this.medicinesService.getMedicineByIdSorted(id, { latitude, longitude });
+
+    console.log(medicine.pharmacies);
+    
+    return medicine;
+  }
+
+  /**
+   * Gets the medicine with the given ID.
+   * 
+   * @param id The id of the medicine needed.
+   * @throws {NotFoundException} if the medicine with the given ID was not found.
+   * @returns A promise that resolves to a medicine.
+   */
+  @Get('/:id')
   async getMedicineById(@Param('id') id: number): Promise<Medicine> {
-    return await this.medicinesService.getMedicineById(id);
+    const medicine: Medicine = await this.medicinesService.getMedicineById(id);
+
+    console.log(medicine.pharmacies);
+    
+    return medicine;
   }
 
   /**
@@ -44,8 +73,12 @@ export class MedicinesController {
    * @returns A promise that resolves to the newly created medicine.
    */
   @Post()
-  async createMedicine(@Body() createMedicineDto: CreateMedicineDto): Promise<Medicine> {
-    return await this.medicinesService.createMedicine(createMedicineDto);
+  // @UseGuards(AuthGuard('jwt'))
+  async createMedicine(
+    @Body() createMedicineDto: CreateMedicineDto,
+    @GetPharmacy() pharmacy: Pharmacy
+    ): Promise<Medicine> {
+    return await this.medicinesService.createMedicine(createMedicineDto, pharmacy);
   }
 
 }

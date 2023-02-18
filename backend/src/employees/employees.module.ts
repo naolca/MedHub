@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
+import { EmployeesService } from './employees.service';
+import { Employee } from './entities/employee.entity';
+import { EmployeesController } from './employees.controller';
+import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
 
 @Module({
   imports: [
@@ -15,10 +17,12 @@ import { JwtStrategy } from './jwt.strategy';
         expiresIn: 3600,
       },
     }),
+    TypeOrmModule.forFeature([ Employee ]),
+    PharmaciesModule,
   ],
-  controllers: [AuthController],
+  controllers: [EmployeesController],
   providers: [
-    AuthService,
+    EmployeesService,
     JwtStrategy,
   ],
   exports: [
@@ -26,4 +30,4 @@ import { JwtStrategy } from './jwt.strategy';
     PassportModule,
   ],
 })
-export class AuthModule {}
+export class EmployeesModule {}

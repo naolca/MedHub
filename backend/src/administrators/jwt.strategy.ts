@@ -1,16 +1,16 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtPayload } from './jwt-payload.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
+import { Administrator } from './entities/administrator.entity';
 import { Repository } from 'typeorm';
+import { JwtAdministratorPayload } from './jwt-administrator-payload.interface';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    @InjectRepository(Administrator)
+    private administratorRepository: Repository<Administrator>,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -18,14 +18,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayload): Promise<User> {
+  async validate(payload: JwtAdministratorPayload): Promise<Administrator> {
     const { username } = payload;
-    const user = await this.userRepository.findOne({ where: { username } });
+    const administrator = await this.administratorRepository.findOne({ where: { username } });
 
-    if (!user) {
+    console.log(administrator);
+
+    if (!administrator) {
       throw new UnauthorizedException();
     }
 
-    return user;
+    return administrator;
   }
 }

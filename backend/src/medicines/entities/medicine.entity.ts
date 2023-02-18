@@ -32,6 +32,16 @@ export class Medicine {
     @OneToMany(() => Reservation, reservation => reservation.medicine)
     reservations: Reservation[];
 
-    @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines)
+    @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines, {
+        eager: true
+    })
     pharmacies: Pharmacy[];
+
+    addPharmacy(pharmacy: Pharmacy) {
+        if (!this.pharmacies) {
+            this.pharmacies = new Array<Pharmacy>();
+        }
+
+        this.pharmacies.push(pharmacy);
+    }
 }

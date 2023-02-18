@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from 'src/auth/entities/user.entity';
+import { Administrator } from 'src/administrators/entities/administrator.entity';
+import { Employee } from 'src/employees/entities/employee.entity';
+import { Medicine } from 'src/medicines/entities/medicine.entity';
+import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { Reservation } from 'src/reservations/entities/reservation.entity';
 
 @Module({
   imports: [
@@ -11,7 +15,7 @@ import { User } from 'src/auth/entities/user.entity';
       username: 'postgres',
       password: 'postgres',
       database: 'medhub',
-      entities: [User],
+      entities: [ Employee, Medicine, Pharmacy, Reservation, Administrator ],
       synchronize: true,
     }),
   ],

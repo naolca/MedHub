@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
 import { Repository } from 'typeorm';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
@@ -9,7 +11,8 @@ import { Medicine } from './entities/medicine.entity';
 export class MedicinesService {
     constructor(
         @InjectRepository(Medicine)
-        private medicineRepository: Repository<Medicine>
+        private medicineRepository: Repository<Medicine>,
+        private pharmaciesService: PharmaciesService,
     ) {}
 
     /**
@@ -24,6 +27,18 @@ export class MedicinesService {
         }
 
         return medicines;
+    }
+
+    async getMedicineByIdSorted(id: number, { latitude, longitude }): Promise<Medicine> {
+        const medicine = await this.medicineRepository.findOne({ where: { id } });
+
+        if (!medicine) {
+            throw new NotFoundException(`The requested medicine doesn't exist.`);
+        }
+
+        medicine.pharmacies = this.pharmaciesService.sortPharmacies(medicine.pharmacies, { latitude, longitude });
+        
+        return medicine;
     }
 
     async getMedicineById(id: number): Promise<Medicine> {
@@ -52,8 +67,14 @@ export class MedicinesService {
         return medicines;
       }      
 
-    async createMedicine(createMedicineDto: CreateMedicineDto): Promise<Medicine> {
-        const medicine: Medicine = new Medicine();
+    async createMedicine(
+
+        createMedicineDto: CreateMedicineDto,
+        pharmacy: Pharmacy,
+
+        ): Promise<Medicine> {
+
+        let medicine: Medicine = new Medicine();
 
         medicine.genericName = createMedicineDto.genericName;
         medicine.brandName = createMedicineDto.brandName;
@@ -63,6 +84,13 @@ export class MedicinesService {
         medicine.receivingAddress = createMedicineDto.receivingAddress;
         medicine.storageConditions = createMedicineDto.storageConditions;
 
-        return await this.medicineRepository.save(medicine);
+        let pharmacy_temp: Pharmacy = await this.pharmaciesService.findOne(createMedicineDto.pharmacyId);
+        
+
+        if (! await this.medicineRepository.save(medicine) ) {
+            medicine = await this.getFilteredMedicines( { key: createMedicineDto.brandName } )[0];
+            medicine.addPharmacy(pharmacy_temp);
+        }
+        return medicine;
     }
 }
