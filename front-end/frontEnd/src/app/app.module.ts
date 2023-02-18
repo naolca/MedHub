@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
+import { ApplicationRef, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -10,7 +9,13 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { FormsModule, NgForm } from '@angular/forms';
+import {
+  FormsModule,
+  NgControl,
+  FormControl,
+  NgForm,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FooterComponent } from './home-body/footer/footer.component';
@@ -32,8 +37,8 @@ const routes: Routes = [
   { path: 'About', component: AboutComponent },
   { path: 'Sign-up', component: SignUpComponent },
   { path: 'landing-page', component: LandingPageComponent },
-  { path: 'loginpage', component: LoginComponent },
-  { path: 'search-result', component: SearchResultComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'search-results', component: SearchResultComponent },
   {
     path: 'adminDisplayPendingRegistration',
     component: AdminDisplayPendingRegistationComponent,
@@ -77,10 +82,23 @@ const routes: Routes = [
     MatInputModule,
     MatAutocompleteModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private injector: Injector) {}
+
+  ngDoBootstrap() {
+    const ngControlProvider = { provide: NgControl, useValue: null };
+    const customInjector = Injector.create({
+      providers: [ngControlProvider],
+      parent: this.injector,
+    });
+    const appRef = this.injector.get(ApplicationRef);
+    appRef.bootstrap(AppComponent, { injector: customInjector });
+  }
+}

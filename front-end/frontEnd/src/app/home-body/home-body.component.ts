@@ -13,8 +13,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./home-body.component.css'],
 })
 export class HomeBodyComponent {
+  value: any[];
   constructor(
-    private mydata: MyDataService,
+    protected myService: MyDataService,
     private http: HttpClient,
     private router: Router
   ) {}
@@ -23,7 +24,8 @@ export class HomeBodyComponent {
     // this.http.get(`http://localhost:3000?q=${value}`).subscribe((data: any) => {
     //   this.router.navigate(['/search-results'], { state: { data } });
     // });
+    this.value = this.myService.searchMedicines();
 
-    this.router.navigate(['/search-result'], { state: { value } });
+    this.router.navigate(['/search-results'], { state: { q: value } });
   }
 }

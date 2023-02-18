@@ -13,8 +13,7 @@ export class AdminDisplayPharmaciesComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.getPharmacies();
-    console.log(this.data);
+    console.log(localStorage);
   }
   getPharmacies() {
     // this.http.get(`http://localhost:3000?q=${value}`).subscribe((data: any) => {

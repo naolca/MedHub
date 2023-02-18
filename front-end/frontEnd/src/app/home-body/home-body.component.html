@@ -13,7 +13,9 @@
 >
   <div class="input-group">
     <input
+      [(ngModel)]="myService.searchKey"
       #input
+      name="name"
       type="text"
       class="form-control"
       placeholder="Search for a drug"
