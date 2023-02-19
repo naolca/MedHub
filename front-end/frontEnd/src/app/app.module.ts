@@ -30,6 +30,7 @@ import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.com
 import { AdminDisplayPharmaciesComponent } from './admin-page/admin-display-pharmacies/admin-display-pharmacies.component';
 import { AdminDisplayPendingRegistationComponent } from './admin-page/admin-display-pending-registation/admin-display-pending-registation.component';
 import { ManagerPageComponent } from './manager-page/manager-page.component';
+import { AddPharmacyFormComponent } from './admin-page/add-pharmacy-form/add-pharmacy-form.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'managersPage',
     component: ManagerPageComponent,
+  },
+  {
+    path: 'addPharmacy',
+    component: AddPharmacyFormComponent,
   },
 ];
 
@@ -74,6 +79,7 @@ const routes: Routes = [
     AdminFooterComponent,
     AdminDisplayPharmaciesComponent,
     AdminDisplayPendingRegistationComponent,
+    AddPharmacyFormComponent,
   ],
   imports: [
     BrowserModule,
