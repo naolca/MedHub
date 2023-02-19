@@ -6,13 +6,14 @@ import { Employee } from './entities/employee.entity';
 import { EmployeeRoleTypes } from './roles/employee.roles';
 import { Roles } from './roles.decorator';
 import { EmployeeRolesGuard } from './roles.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('employees')
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) {}
 
   @Get()
-  @Roles(EmployeeRoleTypes.Owner)
+  @UseGuards(JwtAuthGuard)
   async getAllEmployees() {
     return this.employeesService.getAllEmployees();
   }
@@ -22,8 +23,8 @@ export class EmployeesController {
     return this.employeesService.signUp(createEmployeeDto);
   }
 
-  // @Post('/signin')
-  // signIn(@Body(ValidationPipe) employeeCredentialsDto: EmployeeCredentialsDto): Promise<{ accessToken: string }> {
-  //   return this.employeesService.logIn(employeeCredentialsDto);
-  // }
+  @Post('/signin')
+  signIn(@Body(ValidationPipe) employeeCredentialsDto: EmployeeCredentialsDto): Promise<{ accessToken: string }> {
+    return this.employeesService.logIn(employeeCredentialsDto);
+  }
 }

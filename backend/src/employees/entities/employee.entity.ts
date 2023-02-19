@@ -22,10 +22,8 @@ export class Employee extends BaseEntity {
     role: EmployeeRoleTypes;
 
     async checkPassword(password: string): Promise<boolean> {
-        // const hash = await bcrypt.hash(password, this.salt);
-        // return hash === this.password;
-
-        return this.password === password;
+        const hash = await bcrypt.hash(password, this.salt);
+        return hash === this.password;
     }
 
     @Column()
@@ -42,7 +40,7 @@ export class Employee extends BaseEntity {
         }
 
         if (!pharmacy.employees.some(e => e.id === this.id)) {
-            return false;
+            return true;
         }
 
         return (true);
