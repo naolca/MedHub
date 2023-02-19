@@ -22,8 +22,10 @@ export class Employee extends BaseEntity {
     role: EmployeeRoleTypes;
 
     async checkPassword(password: string): Promise<boolean> {
-        const hash = await bcrypt.hash(password, this.salt);
-        return hash === this.password;
+        // const hash = await bcrypt.hash(password, this.salt);
+        // return hash === this.password;
+
+        return this.password === password;
     }
 
     @Column()
@@ -34,13 +36,13 @@ export class Employee extends BaseEntity {
     })
     pharmacy: Pharmacy;
 
-    checkPharmacy(pharmacy: Pharmacy): boolean {
+    async checkPharmacy(pharmacy: Pharmacy): Promise<boolean> {
         if (!pharmacy) {
             return (false);
         }
 
-        if (!(pharmacy.employees.includes(this))) {
-            return (false);
+        if (!pharmacy.employees.some(e => e.id === this.id)) {
+            return false;
         }
 
         return (true);

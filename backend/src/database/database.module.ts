@@ -10,10 +10,10 @@ import { Reservation } from 'src/reservations/entities/reservation.entity';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: '10.6.250.56',
+      host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: '7878',
+      password: 'postgres',
       database: 'medhub',
       entities: [ Employee, Medicine, Pharmacy, Reservation, Administrator ],
       synchronize: true,

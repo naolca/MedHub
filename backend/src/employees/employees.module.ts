@@ -6,11 +6,10 @@ import { EmployeesService } from './employees.service';
 import { Employee } from './entities/employee.entity';
 import { EmployeesController } from './employees.controller';
 import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
-import { EmployeeJwtStrategy } from './employee-jwt.strategy';
 
 @Module({
   imports: [
-    PassportModule.register({ defaultStrategy: 'jwt' }),
+    PassportModule.register({ defaultStrategy: 'jwt-employee' }),
     JwtModule.register({
       secret: 'MedHub',
       signOptions: {
@@ -23,10 +22,8 @@ import { EmployeeJwtStrategy } from './employee-jwt.strategy';
   controllers: [EmployeesController],
   providers: [
     EmployeesService,
-    EmployeeJwtStrategy,
   ],
   exports: [
-    EmployeeJwtStrategy,
     PassportModule,
   ],
 })

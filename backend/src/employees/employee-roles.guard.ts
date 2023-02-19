@@ -8,7 +8,7 @@ export class EmployeeRolesGuard implements CanActivate {
     ) {
     }
     canActivate(context: ExecutionContext): boolean {
-        const requiredRoles = this.reflector.get<string[]>('roles', context.getHandler());
+        const requiredRoles = this.reflector.get<string[]>('role', context.getHandler());
         if (!requiredRoles) {
           // If the handler doesn't have the @Roles() decorator, allow access
           return true;

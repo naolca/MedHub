@@ -12,8 +12,8 @@ export class PharmaciesController {
   // @UseGuards(AuthGuard('jwt'))
   create(@Body() createPharmacyDto: CreatePharmacyDto, @GetAdministrator() administrator) {
     return this.pharmaciesService.create(createPharmacyDto);
-  }]
-  
+  }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {

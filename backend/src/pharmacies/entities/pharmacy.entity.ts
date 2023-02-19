@@ -25,7 +25,9 @@ export class Pharmacy {
   longitude: number;
 
   // pharmacies can have many employees
-  @OneToMany(() => Employee, employee => employee.pharmacy)
+  @OneToMany(() => Employee, employee => employee.pharmacy, {
+    eager: true
+  })
   employees: Employee[];
 
   // pharmacies can have many reservations issued towards them

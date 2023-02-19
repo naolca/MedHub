@@ -8,7 +8,6 @@ import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { Employee } from './entities/employee.entity';
 import * as bcrypt from "bcrypt";
 import { EmployeeCredentialsDto } from './dto/employee-credentials.dto';
-import { JwtEmployeePayload } from './jwt-employee-payload.interface';
 
 @Injectable()
 export class EmployeesService {
@@ -50,31 +49,33 @@ export class EmployeesService {
         }
     }
 
-    async logIn(employeeCredentialsDto: EmployeeCredentialsDto): Promise<{ accessToken: string }> {
-        const employee: Employee = await this.validateEmployeeCredentials(employeeCredentialsDto);
+    // async logIn(employeeCredentialsDto: EmployeeCredentialsDto): Promise<{ accessToken: string }> {
+    //     const { employee, pharmacy } = await this.validateEmployeeCredentials(employeeCredentialsDto);
 
-        if (!employee) {
-            throw new UnauthorizedException(`Something is wrong.`);
-        }
+    //     console.log(employee);
+    //     console.log(pharmacy);
 
-        const payload: JwtEmployeePayload = {
-            username: employee.username,
-            pharmacy: employee.pharmacy.pharmacyName,
-            role: employee.role,
-        };
-        const accessToken = await this.jwtService.sign(payload);
+    //     if (!employee) {
+    //         throw new UnauthorizedException(`Something is wrong.`);
+    //     }
 
-        return { accessToken };
-    }
+    //     const payload: JwtEmployeePayload = {
+    //         username: employee.username,
+    //         pharmacy: pharmacy.pharmacyName,
+    //         role: employee.role,
+    //     };
+    //     const accessToken = await this.jwtService.sign(payload);
 
-    async validateEmployeeCredentials(employeeCredentialsDto: EmployeeCredentialsDto): Promise<Employee> {
+    //     return { accessToken };
+    // }
+
+    async validateEmployeeCredentials(employeeCredentialsDto: EmployeeCredentialsDto): Promise<{ employee: Employee, pharmacy: Pharmacy }> {
         let { username, password, pharmacyId } = employeeCredentialsDto;
 
         const employee: Employee = await this.employeeRepository.findOne({ where: { username } });
         const pharmacy: Pharmacy = await this.pharmaciesService.findOne( pharmacyId );
-
-        if (employee && pharmacy && await employee.checkPassword(password) && await employee.checkPharmacy(pharmacy)) {
-            return employee;
+        if (employee != null && pharmacy != null && await employee.checkPassword(password) && await employee.checkPharmacy(pharmacy)) {
+            return { employee, pharmacy };
         } else {
             return null;
         }
