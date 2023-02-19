@@ -32,6 +32,8 @@ import { AdminDisplayPendingRegistationComponent } from './admin-page/admin-disp
 import { ManagerPageComponent } from './manager-page/manager-page.component';
 import { AddPharmacyFormComponent } from './admin-page/add-pharmacy-form/add-pharmacy-form.component';
 import { AddMedicineComponent } from './manager-page/add-medicine/add-medicine.component';
+import { EmployeePageComponent } from './employee-page/employee-page.component';
+import UpdateStockComponent from './manager-page/update-stock/update-stock.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -61,6 +63,10 @@ const routes: Routes = [
     path: 'addMedicine',
     component: AddMedicineComponent,
   },
+  {
+    path: 'adminHomePage',
+    component: AdminPageComponent,
+  },
 ];
 
 @NgModule({
@@ -86,6 +92,8 @@ const routes: Routes = [
     AdminDisplayPendingRegistationComponent,
     AddPharmacyFormComponent,
     AddMedicineComponent,
+    EmployeePageComponent,
+    UpdateStockComponent,
   ],
   imports: [
     BrowserModule,

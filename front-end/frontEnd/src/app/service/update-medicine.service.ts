@@ -9,6 +9,7 @@ export class UpdateMedicineService {
 
   constructor(private http: HttpClient) {}
 
+  //method that takes care of add medicine functionality
   addMedicine(
     genericName: string,
     brandName: string,
@@ -31,6 +32,15 @@ export class UpdateMedicineService {
         expiryDate: expiryDate,
         pharmacyId: pharmacyId,
       })
+    );
+  }
+
+  //method that handles the situation when a manager or employee wants to update the amount of the medicine in the pharmacy stock
+
+  updateStock(genericName: string, ammount: number) {
+    this.http.patch(
+      this.url,
+      JSON.stringify({ genericName: genericName, ammount: ammount })
     );
   }
 }

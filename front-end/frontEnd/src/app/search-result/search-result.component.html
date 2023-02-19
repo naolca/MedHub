@@ -1,4 +1,29 @@
 <app-header></app-header>
+
+<form
+  (submit)="search(input.value)"
+  class="navbar-form navbar-right"
+  role="search"
+>
+  <div class="input-group">
+    <input
+      [(ngModel)]="this.myService.searchKey"
+      #input
+      name="name"
+      type="text"
+      class="form-control"
+      placeholder="Search for a drug"
+    />
+
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-default">
+        <span class="glyphicon glyphicon-search"></span>
+      </button>
+    </span>
+    <div type="submit" class="button"><button>Search</button></div>
+  </div>
+</form>
+
 <div class="container py-5">
   <!-- For demo purpose -->
   <!-- https://bootstrapious.com/i/snippets/sn-cards/shoes-1_gthops.jpg -->

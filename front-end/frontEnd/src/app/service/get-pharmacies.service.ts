@@ -42,7 +42,7 @@ export class GetPharmaciesService {
       longitude: 100,
     },
   ];
-  url: string = 'http://localhost3000/pharmacies';
+  url: string = 'http://192.168.173.2:3000/medicines';
 
   constructor(private http: HttpClient) {}
 
