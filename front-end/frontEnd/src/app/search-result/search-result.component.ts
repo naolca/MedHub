@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MedicineDetailComponent } from '../medicine-detail/medicine-detail.component';
 import { MyDataService } from '../service/my-data.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { NgFor } from '@angular/common';
@@ -29,8 +30,11 @@ export class SearchResultComponent implements OnInit {
     //   this.router.navigate(['/search-results'], { state: { data } });
     // });
     this.results = this.myService.searchMedicines();
-
     this.route.navigate(['/search-results']);
-    console.log(this.myService.searchKey);
+  }
+
+  //method to handle the redirection to the details page
+  toDetail(detailID: number) {
+    this.route.navigate(['/medicineDetails', detailID]);
   }
 }

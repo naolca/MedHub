@@ -31,7 +31,11 @@
 
   <div class="row">
     <!-- *ngFor="let result of medicines" -->
-    <div *ngFor="let result of results" class="col-lg-8 mx-auto">
+    <div
+      *ngFor="let result of results"
+      (click)="toDetail(result.ID)"
+      class="col-lg-8 mx-auto"
+    >
       <!-- List group-->
       <ul class="list-group shadow">
         <!-- list group item-->

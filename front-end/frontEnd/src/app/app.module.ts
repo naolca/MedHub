@@ -34,6 +34,7 @@ import { AddPharmacyFormComponent } from './admin-page/add-pharmacy-form/add-pha
 import { AddMedicineComponent } from './manager-page/add-medicine/add-medicine.component';
 import { EmployeePageComponent } from './employee-page/employee-page.component';
 import UpdateStockComponent from './manager-page/update-stock/update-stock.component';
+import { MedicineDetailComponent } from './medicine-detail/medicine-detail.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -67,6 +68,14 @@ const routes: Routes = [
     path: 'adminHomePage',
     component: AdminPageComponent,
   },
+  {
+    path: 'updateStock',
+    component: UpdateStockComponent,
+  },
+  {
+    path: 'medicineDetails/:detailID',
+    component: MedicineDetailComponent,
+  },
 ];
 
 @NgModule({
@@ -94,6 +103,7 @@ const routes: Routes = [
     AddMedicineComponent,
     EmployeePageComponent,
     UpdateStockComponent,
+    MedicineDetailComponent,
   ],
   imports: [
     BrowserModule,
