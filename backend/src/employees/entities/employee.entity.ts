@@ -26,7 +26,6 @@ export class Employee extends BaseEntity {
         return hash === this.password;
     }
 
-
     @ManyToOne(() => Pharmacy, pharmacy => pharmacy.employees, {
         cascade: true
     })

@@ -7,7 +7,7 @@ import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
 import { AdministratorsService } from './administrators.service';
 import { AdministratorsController } from './administrators.controller';
 import { Administrator } from './entities/administrator.entity';
-import { AdministratorJwtStrategy } from './jwt/jwt.strategy';
+import { AdministratorJwtStrategy } from './jwt/administrator-jwt.strategy';
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { AdministratorJwtStrategy } from './jwt/jwt.strategy';
     AdministratorsService, 
     AdministratorJwtStrategy,
   ],
-  controllers: [AdministratorsController],
-  exports: [AdministratorJwtStrategy, PassportModule],
+  controllers: [ AdministratorsController ],
+  exports: [ AdministratorJwtStrategy ],
 })
 export class AdministratorsModule {}

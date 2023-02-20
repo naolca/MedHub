@@ -4,6 +4,7 @@ import { Administrator } from 'src/administrators/entities/administrator.entity'
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Medicine } from 'src/medicines/entities/medicine.entity';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { Reservation } from 'src/reservations/entities/reservation.entity';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
         Pharmacy, 
         Employee,
         Administrator,
+        Reservation,
       ],
       synchronize: true,
     }),

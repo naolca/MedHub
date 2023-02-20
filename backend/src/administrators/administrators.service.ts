@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { Administrator } from './entities/administrator.entity';
 import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
 import { AdministratorCredentialsDto } from './dto/administrator-credentials.dto';
-import { AdministratorJwtPayload } from './jwt/jwt-payload.interface';
+import { AdministratorJwtPayload } from './jwt/administrator-jwt-payload.interface';
 
 @Injectable()
 export class AdministratorsService {

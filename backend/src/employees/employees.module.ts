@@ -7,7 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Employee } from './entities/employee.entity';
 import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
 import { EmployeesController } from './employees.controller';
-import { EmployeeJwtStrategy } from './jwt/jwt.strategy';
+import { EmployeeJwtStrategy } from './jwt/employee-jwt.strategy';
 
 @Module({
   imports: [
@@ -31,6 +31,6 @@ import { EmployeeJwtStrategy } from './jwt/jwt.strategy';
     EmployeeJwtStrategy,
   ],
   controllers: [EmployeesController],
-  exports: [EmployeeJwtStrategy, PassportModule],
+  exports: [ EmployeeJwtStrategy ],
 })
 export class EmployeesModule {}

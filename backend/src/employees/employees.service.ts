@@ -7,7 +7,7 @@ import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { EmployeeCredentialsDto } from './dto/employee-credentials.dto';
 import { Employee } from './entities/employee.entity';
-import { EmployeeJwtPayload } from './jwt/jwt-payload.interface';
+import { EmployeeJwtPayload } from './jwt/employee-jwt-payload.interface';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
 
 @Injectable()
@@ -68,7 +68,7 @@ export class EmployeesService {
         throw new UnauthorizedException(`The given employee doesn't work at the said pharmacy.`)
       }
 
-      const payload: EmployeeJwtPayload = { username };
+      const payload: EmployeeJwtPayload = { username, pharmacyId };
       const accessToken: string = await this.jwtService.sign(payload);
       return { accessToken };
     } else {

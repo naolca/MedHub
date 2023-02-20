@@ -2,11 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, Un
 import { PharmaciesService } from './pharmacies.service';
 import { CreatePharmacyDto } from './dto/create-pharmacy.dto';
 import { UpdatePharmacyDto } from './dto/update-pharmacy.dto';
-import { EmployeeJwtAuthGuard } from 'src/employees//jwt/jwt-auth.guard';
 import { GetEmployee } from 'src/employees/decorators/get-employee.decorator';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Pharmacy } from './entities/pharmacy.entity';
-import { AdministratorJwtAuthGuard } from 'src/administrators/jwt/jwt-auth.guard';
+import { AdministratorJwtAuthGuard } from 'src/administrators/jwt/administrator-jwt-auth.guard';
+import { EmployeeJwtAuthGuard } from 'src/employees/jwt/employee-jwt-auth.guard';
 
 @Controller('pharmacies')
 export class PharmaciesController {

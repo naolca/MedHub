@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { GetEmployee } from './decorators/get-employee.decorator';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { Employee } from './entities/employee.entity';
-import { EmployeeJwtAuthGuard } from './jwt/jwt-auth.guard';
+import { EmployeeJwtAuthGuard } from './jwt/employee-jwt-auth.guard';
+import { AdministratorJwtAuthGuard } from 'src/administrators/jwt/administrator-jwt-auth.guard';
 
 @Controller('employees')
 export class EmployeesController {
@@ -25,7 +26,8 @@ export class EmployeesController {
   @UseGuards(EmployeeJwtAuthGuard)
   test(
     @GetEmployee() employee: Employee,
+    @Req() req
   ) {
-    console.log(employee);
+    console.log(employee, req.user);
   }
 }

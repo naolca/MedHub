@@ -4,7 +4,7 @@ import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
 import { Medicine } from './entities/medicine.entity';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
-import { EmployeeJwtAuthGuard } from 'src/employees//jwt/jwt-auth.guard';
+import { EmployeeJwtAuthGuard } from 'src/employees/jwt/employee-jwt-auth.guard';
 
 @Controller('medicines')
 export class MedicinesController {
@@ -57,6 +57,7 @@ export class MedicinesController {
    */
   @Get('/:id')
   async getMedicineById(@Param('id') id: number): Promise<Medicine> {
+    console.log("hello")
     const medicine: Medicine = await this.medicinesService.getMedicineById(id);
 
     console.log(medicine.pharmacies);
