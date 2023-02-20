@@ -1,13 +1,16 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 import * as bcrypt from "bcrypt";
 
 import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";
-import { EmployeeType } from "../enums/employee-type.enum";
 
 @Entity()
+@Unique(['username'])
 export class Employee extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Column()
+    name: string;
 
     @Column()
     username: string;
@@ -23,8 +26,6 @@ export class Employee extends BaseEntity {
         return hash === this.password;
     }
 
-    @Column()
-    name: string;
 
     @ManyToOne(() => Pharmacy, pharmacy => pharmacy.employees, {
         cascade: true
@@ -32,17 +33,17 @@ export class Employee extends BaseEntity {
     pharmacy: Pharmacy;
 
     checkPharmacy(pharmacy: Pharmacy): boolean {
-        if (!pharmacy) {
-            return ( false );
+        if (pharmacy && Array.isArray(pharmacy.employees)) {
+            for (let i = 0; i < pharmacy.employees.length; i++) {
+                if ( pharmacy.employees[i].id === this.id ) {
+                    return true;
+                }
+            }
         }
 
-        if ( !(pharmacy.employees.includes( this )) ) {
-            return ( false );
-        }
-
-        return ( true );
+        return false;
     }
 
     @Column()
-    employeeType: EmployeeType;
+    role: string;
 }

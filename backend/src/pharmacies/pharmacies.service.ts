@@ -9,7 +9,7 @@ import { Pharmacy } from './entities/pharmacy.entity';
 export class PharmaciesService {
   constructor(
     @InjectRepository(Pharmacy)
-      private readonly pharmacyRepository: Repository<Pharmacy>
+      private readonly pharmaciesRepository: Repository<Pharmacy>
   ){}
 
   //new pharmacy registration  
@@ -22,11 +22,11 @@ export class PharmaciesService {
     pharmacy.latitude=createPharmacyDto.latitude;
     pharmacy.longitude=createPharmacyDto.longitude;
 
-    return await this.pharmacyRepository.save(pharmacy);
+    return await this.pharmaciesRepository.save(pharmacy);
   }
 
   async findAll() {
-    return await this.pharmacyRepository.find();
+    return await this.pharmaciesRepository.find();
   }
 
   sortPharmacies(pharmacies: Pharmacy[], target: {latitude: number, longitude: number}) {
@@ -63,12 +63,12 @@ export class PharmaciesService {
         limit = 5,
       ): Promise<Pharmacy[]> {
     
-        const pharmacies = await this.pharmacyRepository.find();
+        const pharmacies = await this.pharmaciesRepository.find();
         return this.sortPharmacies(pharmacies, { latitude, longitude });
   }
   
-  async findOne(pharmacyId: number): Promise<Pharmacy> {
-    return await this.pharmacyRepository.findOne( { where: { pharmacyId } } );
+  async getpharmacyById(pharmacyId: number): Promise<Pharmacy> {
+    return await this.pharmaciesRepository.findOne( { where: { pharmacyId } } );
   }
 
   update(id: number, updatePharmacyDto: UpdatePharmacyDto) {
@@ -76,6 +76,6 @@ export class PharmaciesService {
   }
 
   async remove(id: number) {
-    return await this.pharmacyRepository.delete(id)
+    return await this.pharmaciesRepository.delete(id)
   }
 }
