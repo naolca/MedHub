@@ -44,8 +44,6 @@ export class Employee extends BaseEntity {
         return false;
     }
 
-
-
     @Column()
     role: string;
 }

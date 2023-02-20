@@ -6,14 +6,15 @@ import { EmployeeJwtAuthGuard } from 'src/employees//jwt/jwt-auth.guard';
 import { GetEmployee } from 'src/employees/decorators/get-employee.decorator';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Pharmacy } from './entities/pharmacy.entity';
+import { AdministratorJwtAuthGuard } from 'src/administrators/jwt/jwt-auth.guard';
 
 @Controller('pharmacies')
 export class PharmaciesController {
   constructor(private readonly pharmaciesService: PharmaciesService) {}
 
   @Post()
-  @UseGuards(EmployeeJwtAuthGuard)
-  create(@Body() createPharmacyDto: CreatePharmacyDto) {
+  @UseGuards(AdministratorJwtAuthGuard)
+  create(@Body() createPharmacyDto: CreatePharmacyDto ) {
     return this.pharmaciesService.create(createPharmacyDto);
   }
 
