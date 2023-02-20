@@ -13,7 +13,7 @@ import { Reservation } from 'src/reservations/entities/reservation.entity';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '7878',
       database: 'medhub',
       entities: [ Employee, Medicine, Pharmacy, Reservation, Administrator ],
       synchronize: true,

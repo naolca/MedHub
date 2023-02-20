@@ -4,15 +4,14 @@ import { CreatePharmacyDto } from './dto/create-pharmacy.dto';
 import { UpdatePharmacyDto } from './dto/update-pharmacy.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetAdministrator } from 'src/administrators/get-administrator.decorator';
-import { PassportModule } from '@nestjs/passport';
 
 @Controller('pharmacies')
 export class PharmaciesController {
   constructor(private readonly pharmaciesService: PharmaciesService) {}
 
   @Post()
-  @UseGuards(AuthGuard())
-  create(@Body() createPharmacyDto: CreatePharmacyDto, @GetAdministrator() administrator) {
+  // @UseGuards(AuthGuard())
+  create(@Body() createPharmacyDto: CreatePharmacyDto) {
     return this.pharmaciesService.create(createPharmacyDto);
   }
 

@@ -13,6 +13,6 @@ import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
     PharmaciesModule,
   ],
   controllers: [ReservationsController],
-  providers: [ReservationsService]
+  providers: [ReservationsService, Reservation]
 })
 export class ReservationsModule {}
