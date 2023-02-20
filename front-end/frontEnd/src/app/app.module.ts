@@ -35,6 +35,7 @@ import { AddMedicineComponent } from './manager-page/add-medicine/add-medicine.c
 import { EmployeePageComponent } from './employee-page/employee-page.component';
 import UpdateStockComponent from './manager-page/update-stock/update-stock.component';
 import { MedicineDetailComponent } from './medicine-detail/medicine-detail.component';
+import { DisplayMedicinesComponent } from './display-medicines/display-medicines.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -76,6 +77,10 @@ const routes: Routes = [
     path: 'medicineDetails/:detailID',
     component: MedicineDetailComponent,
   },
+  {
+    path: 'displayMedicines',
+    component: DisplayMedicinesComponent,
+  },
 ];
 
 @NgModule({
@@ -104,6 +109,7 @@ const routes: Routes = [
     EmployeePageComponent,
     UpdateStockComponent,
     MedicineDetailComponent,
+    DisplayMedicinesComponent,
   ],
   imports: [
     BrowserModule,
