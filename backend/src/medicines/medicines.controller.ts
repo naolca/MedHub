@@ -4,6 +4,7 @@ import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
 import { Medicine } from './entities/medicine.entity';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
+import { EmployeeJwtAuthGuard } from 'src/employees//jwt/jwt-auth.guard';
 
 @Controller('medicines')
 export class MedicinesController {
@@ -70,7 +71,7 @@ export class MedicinesController {
    * @returns A promise that resolves to the newly created medicine.
    */
   @Post()
-  // @UseGuards(AuthGuard('jwt-employee'))
+  @UseGuards(EmployeeJwtAuthGuard)
   async createMedicine(
     @Body() createMedicineDto: CreateMedicineDto,
     ): Promise<Medicine> {

@@ -4,7 +4,7 @@ import { PharmaciesModule } from './pharmacies/pharmacies.module';
 import { DatabaseModule } from './database/database.module';
 import { MedicinesModule } from './medicines/medicines.module';
 import { PassportModule } from '@nestjs/passport';
-import { AuthModule } from './auth/auth.module';
+import { EmployeesModule } from './employees/employees.module';
 
 @Module({
   imports: [ 
@@ -13,7 +13,7 @@ import { AuthModule } from './auth/auth.module';
     PharmaciesModule, 
     ReservationsModule, 
     PassportModule,
-    AuthModule
+    EmployeesModule
   ],
 })
 export class AppModule {}

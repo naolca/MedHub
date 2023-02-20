@@ -3,26 +3,26 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { JwtPayload } from './jwt-payload.interface';
-import { User } from '../entities/user.entity';
-import { UsersRepository } from '../users.repository';
+import { Repository } from 'typeorm';
+import { Employee } from '../entities/employee.entity';
+import { EmployeeJwtPayload } from './jwt-payload.interface';
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class EmployeeJwtStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @InjectRepository(UsersRepository)
-    private usersRepository: UsersRepository,
+    @InjectRepository(Employee)
+    private employeesRepository: Repository<Employee>,
     private configService: ConfigService,
   ) {
     super({
-      secretOrKey: configService.get('JWT_SECRET'),
+      secretOrKey: "MedHub",
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     });
   }
 
-  async validate(payload: JwtPayload): Promise<User> {
+  async validate(payload: EmployeeJwtPayload): Promise<Employee> {
     const { username } = payload;
-    const user: User = await this.usersRepository.findOne({ username });
+    const user: Employee = await this.employeesRepository.findOne({ where: { username }});
 
     if (!user) {
       throw new UnauthorizedException();

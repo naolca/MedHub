@@ -2,15 +2,15 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } f
 import { PharmaciesService } from './pharmacies.service';
 import { CreatePharmacyDto } from './dto/create-pharmacy.dto';
 import { UpdatePharmacyDto } from './dto/update-pharmacy.dto';
-import { GetAdministrator } from 'src/administrators/get-administrator.decorator';
+import { EmployeeJwtAuthGuard } from 'src/employees//jwt/jwt-auth.guard';
 
 @Controller('pharmacies')
 export class PharmaciesController {
   constructor(private readonly pharmaciesService: PharmaciesService) {}
 
   @Post()
-  // @UseGuards(AuthGuard('jwt'))
-  create(@Body() createPharmacyDto: CreatePharmacyDto, @GetAdministrator() administrator) {
+  @UseGuards(EmployeeJwtAuthGuard)
+  create(@Body() createPharmacyDto: CreatePharmacyDto) {
     return this.pharmaciesService.create(createPharmacyDto);
   }
 

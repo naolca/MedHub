@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { EmployeesService } from './employees.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './jwt/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from './entities/user.entity';
+import { Employee } from './entities/employee.entity';
+import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
+import { EmployeesController } from './employees.controller';
+import { EmployeeJwtStrategy } from './jwt/jwt.strategy';
 
 @Module({
   imports: [
@@ -16,16 +17,20 @@ import { User } from './entities/user.entity';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => ({
-        secret: configService.get('JWT_SECRET'),
+        secret: "MedHub",
         signOptions: {
           expiresIn: 3600,
         },
       }),
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([ Employee ]),
+    PharmaciesModule
   ],
-  providers: [AuthService, JwtStrategy],
-  controllers: [AuthController],
-  exports: [JwtStrategy, PassportModule],
+  providers: [
+    EmployeesService, 
+    EmployeeJwtStrategy,
+  ],
+  controllers: [EmployeesController],
+  exports: [EmployeeJwtStrategy, PassportModule],
 })
-export class AuthModule {}
+export class EmployeesModule {}
