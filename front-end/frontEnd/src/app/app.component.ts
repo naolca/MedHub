@@ -55,27 +55,4 @@ export class AppComponent implements OnInit {
         console.log(res);
       });
   }
-
-  getGames(): any {
-    const url =
-      'https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random';
-
-    const headers = new Headers({
-      accept: 'application/json',
-      'X-RapidAPI-Key': '11d5de5304mshf1d577e08b131ecp13f630jsnb1149a912b8c',
-      'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
-    });
-    this.http
-      .get(url, {
-        headers: new HttpHeaders({
-          accept: 'application/json',
-          'X-RapidAPI-Key':
-            '11d5de5304mshf1d577e08b131ecp13f630jsnb1149a912b8c',
-          'X-RapidAPI-Host': 'matchilling-chuck-norris-jokes-v1.p.rapidapi.com',
-        }),
-      })
-      .subscribe((res) => {
-        console.log(res);
-      });
-  }
 }

@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'HomeBody', component: HomeBodyComponent },
   { path: 'About', component: AboutComponent },
-  { path: 'Sign-up', component: SignUpComponent },
+  { path: 'signUp', component: SignUpComponent },
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'search-results', component: SearchResultComponent },
