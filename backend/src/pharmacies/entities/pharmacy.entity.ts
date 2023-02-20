@@ -1,6 +1,6 @@
 import { OneToMany, Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
 
-import { Reservation } from 'src/reservations/entities/reservation.entity';
+// import { Reservation } from 'src/reservations/entities/reservation.entity';
 import { Medicine } from 'src/medicines/entities/medicine.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 
@@ -31,8 +31,8 @@ export class Pharmacy {
   employees: Employee[];
 
   // pharmacies can have many reservations issued towards them
-  @OneToMany(() => Reservation, reservation => reservation.pharmacy)
-  reservations: Reservation[];
+  // @OneToMany(() => Reservation, reservation => reservation.pharmacy)
+  // reservations: Reservation[];
 
   @ManyToMany(() => Medicine, medicine => medicine.pharmacies)
   @JoinTable()

@@ -70,6 +70,7 @@ export class EmployeesService {
 
       const payload: EmployeeJwtPayload = { username };
       const accessToken: string = await this.jwtService.sign(payload);
+
       return { accessToken };
     } else {
       throw new UnauthorizedException(`That employee doesn't exist.`);

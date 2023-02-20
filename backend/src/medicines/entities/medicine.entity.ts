@@ -1,5 +1,4 @@
 import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";
-import { Reservation } from "src/reservations/entities/reservation.entity";
 import { Column, Entity, PrimaryGeneratedColumn, Unique, OneToMany, ManyToMany } from "typeorm";
 
 @Entity()
@@ -29,8 +28,8 @@ export class Medicine {
     @Column()
     expiryDate: string;
 
-    @OneToMany(() => Reservation, reservation => reservation.medicine)
-    reservations: Reservation[];
+    // @OneToMany(() => Reservation, reservation => reservation.medicine)
+    // reservations: Reservation[];
 
     @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines, {
         eager: true

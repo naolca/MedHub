@@ -22,6 +22,7 @@ export class PharmaciesController {
   @Get(':id')
   @UseGuards(EmployeeJwtAuthGuard)
   async getpharmacyById(@Param('id') id: string, @GetEmployee() employee: Employee): Promise<Pharmacy> {
+    console.log(employee);
     const pharmacy = await this.pharmaciesService.getpharmacyById(+id);
 
     if ( !(employee) || !(employee.checkPharmacy(pharmacy)) || !(employee.role == "Owner") ) {

@@ -25,7 +25,7 @@ export class EmployeeJwtStrategy extends PassportStrategy(Strategy) {
     const user: Employee = await this.employeesRepository.findOne({ where: { username }});
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException(`You don't work here.`);
     }
 
     return user;
