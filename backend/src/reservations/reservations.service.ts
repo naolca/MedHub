@@ -23,7 +23,7 @@ export class ReservationsService {
     const { medicineId, pharmacyId, phoneNumber } = createReservationDto;
 
     const medicine: Medicine = await this.medicinesService.getMedicineById(medicineId);
-    const pharmacy: Pharmacy = await this.pharmaciesService.findOne(pharmacyId);
+    const pharmacy: Pharmacy = await this.pharmaciesService.getpharmacyById(pharmacyId);
 
     const reservation: Reservation = new Reservation();
 

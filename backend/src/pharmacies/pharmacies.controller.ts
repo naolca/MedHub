@@ -1,8 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards, UnauthorizedException } from '@nestjs/common';
 import { PharmaciesService } from './pharmacies.service';
 import { CreatePharmacyDto } from './dto/create-pharmacy.dto';
 import { UpdatePharmacyDto } from './dto/update-pharmacy.dto';
 import { EmployeeJwtAuthGuard } from 'src/employees//jwt/jwt-auth.guard';
+import { GetEmployee } from 'src/employees/decorators/get-employee.decorator';
+import { Employee } from 'src/employees/entities/employee.entity';
+import { Pharmacy } from './entities/pharmacy.entity';
 
 @Controller('pharmacies')
 export class PharmaciesController {
@@ -16,8 +19,15 @@ export class PharmaciesController {
 
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.pharmaciesService.findOne(+id);
+  @UseGuards(EmployeeJwtAuthGuard)
+  async getpharmacyById(@Param('id') id: string, @GetEmployee() employee: Employee): Promise<Pharmacy> {
+    const pharmacy = await this.pharmaciesService.getpharmacyById(+id);
+
+    if ( !(employee) || !(employee.checkPharmacy(pharmacy)) || !(employee.role == "Owner") ) {
+      throw new UnauthorizedException(`The user is not the owner of this pharmacy`);
+    }
+
+    return pharmacy;
   }
 
   //you can use http://localhost/pharmacies?latitude=<latitude-value>&longitude=<longitude-value>

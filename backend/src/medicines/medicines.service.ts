@@ -84,7 +84,7 @@ export class MedicinesService {
         medicine.receivingAddress = createMedicineDto.receivingAddress;
         medicine.storageConditions = createMedicineDto.storageConditions;
 
-        let pharmacy_temp: Pharmacy = await this.pharmaciesService.findOne(createMedicineDto.pharmacyId);
+        let pharmacy_temp: Pharmacy = await this.pharmaciesService.getpharmacyById(createMedicineDto.pharmacyId);
         
 
         if (! await this.medicineRepository.save(medicine) ) {

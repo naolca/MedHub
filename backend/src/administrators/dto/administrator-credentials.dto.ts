@@ -1,6 +1,6 @@
 import { IsString, MinLength, MaxLength, Matches } from 'class-validator';
 
-export class EmployeeCredentialsDto {
+export class AdministratorCredentialsDto {
   @IsString()
   @MinLength(4)
   @MaxLength(20)
@@ -14,6 +14,4 @@ export class EmployeeCredentialsDto {
     { message: 'password too weak' },
   )
   password: string;
-
-  pharmacyId: number;
 }

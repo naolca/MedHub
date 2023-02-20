@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './jwt/jwt.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Employee } from './entities/user.entity';
 import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
-import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
+import { AdministratorsService } from './administrators.service';
+import { AdministratorsController } from './administrators.controller';
+import { Administrator } from './entities/administrator.entity';
+import { AdministratorJwtStrategy } from './jwt/jwt.strategy';
 
 @Module({
   imports: [
@@ -24,14 +23,14 @@ import { PharmaciesService } from 'src/pharmacies/pharmacies.service';
         },
       }),
     }),
-    TypeOrmModule.forFeature([ Employee ]),
+    TypeOrmModule.forFeature([ Administrator ]),
     PharmaciesModule
   ],
   providers: [
-    AuthService, 
-    JwtStrategy,
+    AdministratorsService, 
+    AdministratorJwtStrategy,
   ],
-  controllers: [AuthController],
-  exports: [JwtStrategy, PassportModule],
+  controllers: [AdministratorsController],
+  exports: [AdministratorJwtStrategy, PassportModule],
 })
-export class AuthModule {}
+export class AdministratorsModule {}

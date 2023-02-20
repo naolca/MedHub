@@ -4,7 +4,7 @@ import * as bcrypt from "bcrypt";
 import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";
 
 @Entity()
-@Unique([ 'username' ])
+@Unique(['username'])
 export class Employee extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -27,23 +27,25 @@ export class Employee extends BaseEntity {
     }
 
 
-    // @ManyToOne(() => Pharmacy, pharmacy => pharmacy.employees, {
-    //     cascade: true
-    // })
-    // pharmacy: Pharmacy;
+    @ManyToOne(() => Pharmacy, pharmacy => pharmacy.employees, {
+        cascade: true
+    })
+    pharmacy: Pharmacy;
 
-    // checkPharmacy(pharmacy: Pharmacy): boolean {
-    //     if (!pharmacy) {
-    //         return ( false );
-    //     }
+    checkPharmacy(pharmacy: Pharmacy): boolean {
+        if (pharmacy && Array.isArray(pharmacy.employees)) {
+            for (let i = 0; i < pharmacy.employees.length; i++) {
+                if ( pharmacy.employees[i].id === this.id ) {
+                    return true;
+                }
+            }
+        }
 
-    //     if ( !(pharmacy.employees.includes( this )) ) {
-    //         return ( false );
-    //     }
+        return false;
+    }
 
-    //     return ( true );
-    // }
 
-    // @Column()
-    // employeeType: string;
+
+    @Column()
+    role: string;
 }

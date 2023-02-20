@@ -67,7 +67,7 @@ export class PharmaciesService {
         return this.sortPharmacies(pharmacies, { latitude, longitude });
   }
   
-  async findOne(pharmacyId: number): Promise<Pharmacy> {
+  async getpharmacyById(pharmacyId: number): Promise<Pharmacy> {
     return await this.pharmaciesRepository.findOne( { where: { pharmacyId } } );
   }
 
