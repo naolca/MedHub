@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-
-
+import { HttpClient} from '@angular/common/http';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -10,17 +7,16 @@ import { FormsModule } from '@angular/forms';
 
 })
 export class SignUpComponent {
-  constructor(private http:HttpClient){
-
+  constructor(private http:HttpClient){ }
+  onpharamacycreataion(crdenatial:{username: string,password: string,name: string,pharmacyId: number}){
+    console.log(crdenatial)
+     this.http.post('http://10.4.101.71:3000/employees/signup',crdenatial).subscribe((res)=>{
+      console.log(res)
+    })
   }
-  onpharmacycreate(crendtial:{fname:string,lname:string,uname:string,email:string,phone:number,phname:string,loname:string}){
-    console.log(crendtial)
-    // this.http.post('https://localhost300/crendtial.josn',crendtial).subscribe((res)=>{
-    //   console.log(res)
-
-    // })
-
-  }
-
 
 }
+
+
+
+

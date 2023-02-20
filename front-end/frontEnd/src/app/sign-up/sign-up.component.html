@@ -9,108 +9,89 @@
             <div class="card-body p-4 p-md-5">
               <h3 class="mb-4 pb-2">MedHUB</h3>
               <form
+                #phramcycreationform="ngForm"
+                (ngSubmit)="onpharamacycreataion(phramcycreationform.value)"
+
                 class="row g-3 needs-validation row-gap-3 ms-1 me-1"
                 novalidate
               >
-                <div class="col-md-4">
-                  <label for="validationCustom01" class="form-label"
-                    >First name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="validationCustom01"
-                    placeholder="MED"
-                    required
-                  />
-                  <div class="valid-feedback">Looks good!</div>
-                </div>
-                <div class="col-md-4">
-                  <label for="validationCustom02" class="form-label"
-                    >Last name</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="validationCustom02"
-                    placeholder="HUB"
-                    required
-                  />
-                  <div class="valid-feedback">Looks good!</div>
-                </div>
-                <div class="col-md-4">
-                  <label for="validationCustomUsername" class="form-label"
-                    >Username</label
-                  >
-                  <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend"
-                      >@</span
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="validationCustomUsername"
-                      aria-describedby="inputGroupPrepend"
-                      required
-                    />
-                    <div class="invalid-feedback">
-                      Please choose a username.
-                    </div>
-                  </div>
-                </div>
                 <div class="row">
                   <div class="col">
-                    <label for="validationCustomUsername" class="form-label"
-                      >Email</label
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >choose your User name</label
                     >
                     <input
                       type="text"
-                      class="form-control"
-                      placeholder="email"
-                      aria-label="email"
-                    />
-                  </div>
-                  <div class="col">
-                    <label for="validationCustomUsername" class="form-label"
-                      >phone no</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="phone no"
-                      aria-label="phone no"
+                      class="form-control w-100"
+                      placeholder="username"
+                      aria-label="first name"
+                      name="username"
+                      ngModel
                     />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <label for="validationCustomUsername" class="form-label"
-                      >pharmacy name</label
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >name</label
                     >
                     <input
                       type="text"
-                      class="form-control"
-                      placeholder="pharmacy name"
-                      aria-label="name of pharmachy"
-                    />
-                  </div>
-                  <div class="col">
-                    <label for="validationCustomUsername" class="form-label"
-                      >location
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="address"
-                      aria-label="Address"
-                    />
-                  </div>
-                </div>
-              </form>
+                      class="form-control w-100"
+                      placeholder="name"
+                      aria-label="lastname "
+                      name="name"
+                      ngModel
 
-              <button type="button" class="btn btn-primary pt-6">
-                sign in
-              </button>
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control w-100"
+                      placeholder="number"
+                      aria-label="number "
+                      name="password"
+                      ngModel
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >pharam id</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control w-100"
+                      placeholder="location"
+                      aria-label="location "
+                      name="pharmacyId"
+                      ngModel
+                    />
+                  </div>
+                </div>
+                <div class="btn1">
+                  <button type="submit" class="btn btn-primary pt-6 ">
+                    sign up
+                  </button>
+
+                </div>
+
+              </form>
+              <div class="btn1 mt-4 ml-4" >
+                <button type="submit" class="btn btn-primary pt-6 " routerLink="/loginpage">
+                  Already have an account?
+                </button>
+
+              </div>
+
+
             </div>
           </div>
         </div>

@@ -1,0 +1,53 @@
+main{
+  display: flex;
+  flex-direction: column;
+
+}
+.res{
+  background-color: red;
+}
+.hayee{
+  padding: 5px;
+  border-radius: 10%;
+  width: 20%;
+  background-image: linear-gradient(
+    to right,
+    #52b3f8,
+    #37c7f3,
+    #1ab3b8,
+    #15bacd
+  );
+}
+.contact_section{
+  margin-top:7%;
+
+}
+.weyo{
+  padding: 5px;
+}
+
+button{
+  padding: 1.3em 3em;
+  font-size: 12px;
+  margin: 28px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #53b1f0;
+  border: none;
+  border-radius: 35px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3% ease 0%;
+  cursor: pointer;
+  outline: none;
+
+
+}
+#b1:hover{
+background-color: #54adff;
+box-shadow: 0px 5px 5px rgba(13, 176, 252, 0.4);
+color: #fff;
+transform: translateY(-4px);
+
+}

@@ -23,6 +23,11 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminHeaderComponent } from './admin-page/admin-header/admin-header.component';
 import { AdminFooterComponent } from './admin-page/admin-footer/admin-footer.component';
 import { AdminDisplayPharmaciesComponent } from './admin-page/admin-display-pharmacies/admin-display-pharmacies.component';
+import { PharmacistPageComponent } from './pharma-owner/pharmacist-page/pharmacist-page.component';
+import { PharmaOwnerComponent } from './pharma-owner/pharma-owner.component';
+import { UpdateStockComponent } from './pharma-owner/update-stock/update-stock.component';
+import { ReservePageComponent } from './reserve-page/reserve-page.component';
+
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -32,6 +37,11 @@ const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'loginpage', component: LoginComponent },
   { path: 'search-result', component: SearchResultComponent },
+  {path: 'pharmacist-page', component:PharmacistPageComponent},
+  {path:'pharmaowner-onwer', component:PharmaOwnerComponent},
+  {path:'update-stock', component:UpdateStockComponent},
+  {path:'admin-display-pharamacy', component:AdminDisplayPharmaciesComponent},
+  {path: 'reserve-page', component:ReservePageComponent}
 ];
 
 @NgModule({
@@ -54,6 +64,12 @@ const routes: Routes = [
     AdminHeaderComponent,
     AdminFooterComponent,
     AdminDisplayPharmaciesComponent,
+    HeaderComponent,
+    PharmacistPageComponent,
+    PharmaOwnerComponent,
+    UpdateStockComponent,
+    ReservePageComponent,
+
   ],
   imports: [
     BrowserModule,

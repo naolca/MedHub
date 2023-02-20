@@ -3,13 +3,14 @@
 footer {
   padding: 2rem 5rem;
   margin: 2rem auto 0px auto;
-  background-image: linear-gradient(
+  /* background-image: linear-gradient(
     to right,
     #52b3f8,
     #37c7f3,
     #1ab3b8,
     #15bacd
-  );
+  ); */
+  background-color: rgb(9, 73, 66);
   color:black;
 }
 .basic-flex {

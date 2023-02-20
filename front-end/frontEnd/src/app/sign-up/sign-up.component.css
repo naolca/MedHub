@@ -5,8 +5,16 @@
 
 .gradient-custom {
   /* fallback for old browsers */
-  background: #49bef0;
+  background: #5ca7c7;
 
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to bottom right, rgb(81, 193, 245), rgb(41, 65, 252))
+  background: linear-gradient(to bottom right, rgb(21, 111, 153), rgb(87, 105, 241))
+}
+.btn11{
+  margin-top: 15px;
+  align-items: center;
+}
+form{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
