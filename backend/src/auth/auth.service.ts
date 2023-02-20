@@ -14,17 +14,35 @@ export class AuthService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
-    return this.usersRepository.createUser(authCredentialsDto);
+    const employee: Employee = new Employee();
+
+    employee.name = createEmployeeDto.name;
+    employee.employeeType = createEmployeeDto.employeeType;
+    employee.pharmacy = await this.pharmaciesService.findOne(createEmployeeDto.pharmacyId);
+
+    employee.salt = await bcrypt.genSalt();
+    employee.username = createEmployeeDto.username;
+    employee.password = await this.hashPassword(createEmployeeDto.password, employee.salt);
+
+    try {
+      await this.employeeRepository.save(employee);
+    } catch (error) {
+      if (error.code == "23505") {
+        throw new ConflictException(`User with the username ${employee.username} already exists. Pick another username.`);
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 
   async signIn(
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<{ accessToken: string }> {
     const { username, password } = authCredentialsDto;
-    const user = await this.usersRepository.findOne({ where: { username }});
+    const user = await this.usersRepository.findOne({ where: { username } });
 
     if (user && (await bcrypt.compare(password, user.password))) {
       const payload: JwtPayload = { username };
