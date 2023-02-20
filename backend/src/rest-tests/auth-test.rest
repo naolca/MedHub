@@ -26,7 +26,7 @@ Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpa2VyYiI
 # Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZmZWtpcm5ldyIsImlhdCI6MTY3NjQ5NzIwMSwiZXhwIjoxNjc2NTAwODAxfQ.lHrUeasPZ4FlqGZhxCK_vB_WU3eoL2jEtT48KmhOCtA"
 
 
-# GET http://localhost:3000/employees
+# GET htstp://localhost:3000/employees
 # Authorization: " Bearer https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZmZWtpcm5ldzkiLCJwaGFybWFjeSI6IkFCQyIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTY3NjgzNjA5NSwiZXhwIjoxNjc2ODM5Njk1fQ.JkmjsgEN-pCe7d9ybE0dX-An6AYztrf3JBhHiYxbe9c"
 
 # POST http://localhost:3000/employees/signin
