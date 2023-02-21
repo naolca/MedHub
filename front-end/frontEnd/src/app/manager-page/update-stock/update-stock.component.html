@@ -1,1 +1,86 @@
-<p>update-stock works!</p>
+<app-header></app-header>
+
+<section class="intro">
+  <div class="mask d-flex align-items-center h-100 gradient-custom">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2">MedHUB</h3>
+              <form
+                (ngSubmit)="onSubmit()"
+                [formGroup]="updateForm"
+                class="row g-3 needs-validation row-gap-3 ms-1 me-1"
+                novalidate
+              >
+                <div class="row">
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >Brand name</label
+                    >
+                    <input
+                      formControlName="brandName"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder="brand name"
+                      aria-label="pharamacy id"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >pharamacy id</label
+                    >
+                    <input
+                      formControlName="pharmaID"
+                      type="number"
+                      class="form-control w-100"
+                      placeholder="pharamacy id"
+                      aria-label="pharamacy id"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >Amount</label
+                    >
+                    <input
+                      formControlName="ammount"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder="enter amount"
+                      aria-label="name of pharmachy"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="validationCustomUsername" class="form-label m-2"
+                      >Medicine ID</label
+                    >
+                    <input
+                      formControlName="medID"
+                      type="text"
+                      class="form-control w-100"
+                      placeholder="medicine ID"
+                      aria-label="name of pharmachy"
+                    />
+                  </div>
+                </div>
+                <div class="btn1">
+                  <button type="submit" class="btn btn-primary pt-6">
+                    update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

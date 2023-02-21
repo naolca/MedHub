@@ -1,24 +1,13 @@
-*{
-  background-color: #3687c1;
-}
-html {
-  overflow-x: hidden;
-}
-
 body {
-  font-family: "Roboto", sans-serif;
-  color: #9fa1a4;
-  line-height: 1.5;
+  font-family: "Open Sans", sans-serif;
 }
 
 a {
-  color: #777;
   text-decoration: none;
-  transition: 0.3s all ease;
 }
 
 a:hover {
-  color: #000;
+  text-decoration: none;
 }
 
 h1,
@@ -26,158 +15,132 @@ h2,
 h3,
 h4,
 h5,
-h6,
-.font-heading {
-  font-family: "Poppins", sans-serif;
-  color: #000;
+h6 {
+  font-family: "Raleway", sans-serif;
 }
-/* .iphone-wrap{
-  margin-bottom: -350px;
-  background-color: red;
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
-.phone-1{
-  background-color: green;
-} */
-.container {
-  z-index: 2;
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@media screen and (max-width: 768px) {
+  [data-aos-delay] {
+    transition-delay: 0 !important;
+  }
+}
+
+#hero {
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
   position: relative;
 }
 
-.text-black {
-  color: #000 !important;
-}
-
-.text-primary {
-  color: #2d71a1 !important;
-}
-
-.border-top {
-  border-top: 1px solid #f2f2f2 !important;
-}
-
-.border-bottom {
-  border-bottom: 1px solid #f2f2f2 !important;
-}
-
-
-section {
-  overflow: hidden;
-}
-
-.section {
-  padding: 7rem 0;
-}
-
-
-
-/* Default btn sre-tyling */
-.btn {
-  border: none;
-  padding: 15px 30px !important;
-}
-
-.btn.btn-outline-white {
-  border: 2px solid #fff;
-  background: none;
-  color: #fff;
-}
-
-.btn.btn-outline-white:hover {
-  background: #fff;
-  color: #33bdaf;
-}
-
-.btn.btn-primary {
-  background: #33bdaf;
-  background: linear-gradient(-45deg, #1391a5, #274685);
-  color: #fff;
-  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.15);
-}
-
-@media screen and (max-width: 992px) {
-  .hero-section.inner-page .hero-text {
-    margin-top: -80px;
-  }
-}
-
-.hero-section h1 {
-  font-size: 3.5rem;
-  color: #fff;
-  font-weight: 700;
-  margin-bottom: 30px;
-}
-
-@media screen and (max-width: 992px) {
-  .hero-section h1 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-top: 40px;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .hero-section .hero-text-image {
-    margin-top: 4rem;
-  }
-}
-
-.hero-section p {
-  font-size: 18px;
-  color: #fff;
-}
-
-.hero-section .iphone-wrap {
-  position: relative;
-}
-
-@media screen and (max-width: 992px) {
-  .hero-section .iphone-wrap {
-    text-align: center;
-  }
-}
-
-.hero-section .iphone-wrap .phone-2,
-.hero-section .iphone-wrap .phone-1 {
+#hero:before {
+  content: "";
+  background: rgba(0, 0, 0, 0.6);
   position: absolute;
-  top: -50%;
-  overflow: hidden;
+  bottom: 0;
+  top: 0;
   left: 0;
-  box-shadow: 0 15px 50px 0 rgba(0, 0, 0, 0.3);
-  border-radius: 30px;
+  right: 0;
 }
 
-@media screen and (max-width: 992px) {
+#hero .container {
+  position: relative;
+  padding-top: 74px;
+  text-align: center;
+}
 
-  .hero-section .iphone-wrap .phone-2,
-  .hero-section .iphone-wrap .phone-1 {
-    position: relative;
-    top: 0;
-    max-width: 100%;
+#hero h1 {
+  margin: 0;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 64px;
+  color: rgba(54, 167, 212, 0.9);
+  font-family: "Poppins", sans-serif;
+}
+#hero h2 {
+  color: rgba(54, 167, 212, 0.9);
+  margin: 10px 0 0 0;
+  font-size: 24px;
+}
+
+#hero .icon-box {
+  padding: 30px 20px;
+  transition: ease-in-out 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  height: 100%;
+  text-align: center;
+}
+
+#hero .icon-box i {
+  font-size: 32px;
+  line-height: 1;
+  color: #1270a7;
+}
+
+#hero .icon-box h3 {
+  font-weight: 700;
+  margin: 10px 0 0 0;
+  padding: 0;
+  line-height: 1;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#hero .icon-box h3 a {
+  color: #fff;
+  transition: ease-in-out 0.3s;
+}
+
+#hero .icon-box h3 a:hover {
+  color: #1270a7;
+}
+
+#hero .icon-box:hover {
+  border-color: #1270a7;
+  transform: scale(1.1);
+  transition: 0.7s;
+}
+
+@media (min-width: 1024px) {
+  #hero {
+    background-attachment: fixed;
   }
 }
 
-.hero-section .iphone-wrap .phone-2,
-.hero-section .iphone-wrap .phone-1 {
-  width: 250px;
-}
+@media (max-width: 768px) {
+  #hero {
+    height: auto;
+  }
 
-@media screen and (max-width: 992px) {
-  .hero-section .iphone-wrap .phone-1 {
-    margin-left: -150px;
+  #hero h1 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  #hero h2 {
+    font-size: 20px;
+    line-height: 24px;
   }
 }
 
-.hero-section .iphone-wrap .phone-2 {
-  margin-top: 50px;
-  margin-left: 100px;
-  width: 250px;
-}
-
-@media screen and (max-width: 992px) {
-  .hero-section .iphone-wrap .phone-2 {
-    width: 250px;
-    position: absolute;
-    margin-top: 0px;
-    margin-left: 100px;
-  }
+body {
+  background-image: url(https://epha.org/wp-content/uploads/2022/01/florian-olivo-b4dpp5yl-80-unsplash-scaled.jpg);
+  background-size: cover;
 }

@@ -26,8 +26,10 @@ export default class UpdateStockComponent {
     private updateMedicineService: UpdateMedicineService
   ) {
     this.updateForm = this.fb.group({
-      genericName: [''], //[Validators.required]
+      brandName: [''], //[Validators.required]
       ammount: [''], // Validators.required
+      pharmaID: [''], // Validators.required
+      medID: [''], // Validators.required
     });
   }
 
@@ -35,7 +37,9 @@ export default class UpdateStockComponent {
   onSubmit() {
     return this.updateMedicineService.updateStock(
       this.updateForm.value.genericName,
-      this.updateForm.value.ammount
+      this.updateForm.value.ammount,
+      this.updateForm.value.medID,
+      this.updateForm.value.pharmaID
     );
   }
 }

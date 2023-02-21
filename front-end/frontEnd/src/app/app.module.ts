@@ -16,7 +16,7 @@ import {
   NgForm,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FooterComponent } from './home-body/footer/footer.component';
 import { AboutComponent } from './about/about.component';
@@ -36,6 +36,7 @@ import { EmployeePageComponent } from './employee-page/employee-page.component';
 import UpdateStockComponent from './manager-page/update-stock/update-stock.component';
 import { MedicineDetailComponent } from './medicine-detail/medicine-detail.component';
 import { DisplayMedicinesComponent } from './display-medicines/display-medicines.component';
+import { AuthInterceptor } from './auth-interceptor';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -74,7 +75,7 @@ const routes: Routes = [
     component: UpdateStockComponent,
   },
   {
-    path: 'medicineDetails/:detailID',
+    path: 'medicineDetails/:detailID/:medicineName',
     component: MedicineDetailComponent,
   },
   {
@@ -110,6 +111,7 @@ const routes: Routes = [
     UpdateStockComponent,
     MedicineDetailComponent,
     DisplayMedicinesComponent,
+    ManagerPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,19 +124,20 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
-  constructor(private injector: Injector) {}
-
-  ngDoBootstrap() {
-    const ngControlProvider = { provide: NgControl, useValue: null };
-    const customInjector = Injector.create({
-      providers: [ngControlProvider],
-      parent: this.injector,
-    });
-    const appRef = this.injector.get(ApplicationRef);
-    appRef.bootstrap(AppComponent, { injector: customInjector });
-  }
+  // constructor(private injector: Injector) {}
+  // ngDoBootstrap() {
+  //   const ngControlProvider = { provide: NgControl, useValue: null };
+  //   const customInjector = Injector.create({
+  //     providers: [ngControlProvider],
+  //     parent: this.injector,
+  //   });
+  //   const appRef = this.injector.get(ApplicationRef);
+  //   appRef.bootstrap(AppComponent, { injector: customInjector });
+  // }
 }

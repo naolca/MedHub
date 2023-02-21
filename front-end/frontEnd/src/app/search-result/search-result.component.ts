@@ -14,27 +14,45 @@ import { HttpClient } from '@angular/common/http';
 export class SearchResultComponent implements OnInit {
   data: {};
   medicines: any;
-  results: any[];
+  results: any;
   value: any;
+  result: any;
   constructor(
     protected myService: MyDataService,
     private route: Router,
     private http: HttpClient
-  ) {}
+  ) {
+    // this.searchKey = this.myService.searchKey;
+  }
 
-  ngOnInit(): void {
-    this.results = this.myService.searchMedicines();
+  async ngOnInit() {
+    // console.log(this.myService.searchKey);
+    this.myService.searchMedicines().subscribe((data) => {
+      this.result = data;
+      console.log(this.result);
+    });
+    // this.results = await this.myService.searchMedicines();
+    // console.log(this.results);
+    // console.log(this.myService.searchKey);
   }
   search(value: string) {
     // this.http.get(`http://localhost:3000?q=${value}`).subscribe((data: any) => {
     //   this.router.navigate(['/search-results'], { state: { data } });
     // });
-    this.results = this.myService.searchMedicines();
+    this.myService.searchMedicines().subscribe((data) => {
+      this.result = data;
+      console.log(this.result);
+    });
+    // console.log(this.results);
     this.route.navigate(['/search-results']);
   }
 
   //method to handle the redirection to the details page
   toDetail(detailID: number) {
-    this.route.navigate(['/medicineDetails', detailID]);
+    this.route.navigate([
+      '/medicineDetails',
+      detailID,
+      this.myService.searchKey,
+    ]);
   }
 }

@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GetPharmaciesService {
+  constructor(private http: HttpClient) {}
+
   pharmacies: any[] = [
     {
       pharmacyName: 'AA',
@@ -44,10 +46,8 @@ export class GetPharmaciesService {
   ];
   url: string = 'http://192.168.173.2:3000/medicines';
 
-  constructor(private http: HttpClient) {}
-
-  getPharmacies() {
+  getPharmacies(): any {
     // return this.http.get(this.url);
-    return this.pharmacies;
+    return this.http.get('http://192.168.0.187:3000/medicines/1');
   }
 }
