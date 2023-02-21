@@ -1,1 +1,20 @@
-<p>display-medicines works!</p>
+<app-header></app-header>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">medicine Name</th>
+      <th scope="col">batch no</th>
+      <th scope="col">amount</th>
+      <!-- <th scope="col">managers name</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let medicine of medicines">
+      <th scope="row">{{ medicine.name }}</th>
+      <td>{{ medicine.pharmaTinNo }}</td>
+      <td>{{ medicine.branchNum }}</td>
+      <!-- <td>Fkrnew Birhanu</td> -->
+    </tr>
+  </tbody>
+</table>
+<app-footer></app-footer>
