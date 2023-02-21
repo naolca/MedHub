@@ -7,6 +7,5 @@ export class CreateMedicineDto {
     receivingAddress: string;
     storageConditions: string;
     expiryDate: string;
-    pharmacyName: string;
-    pharmacyLocation: number[];
+    pharmacyId: number;
 }

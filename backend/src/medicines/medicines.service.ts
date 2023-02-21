@@ -127,10 +127,8 @@ export class MedicinesService {
         quantity: number,
         brandName:string
       ): Promise<PharmacyMedicine> {
-        const pharmacyMedicine = await this.PharmacyMedicineRepository.findOne({
+        const pharmacyMedicine: PharmacyMedicine = await this.PharmacyMedicineRepository.findOne({
           where: {
-            pharmacy: { id: pharmacyId },
-            medicine: { id: medicineId },
             brandname:brandName
           }
         });

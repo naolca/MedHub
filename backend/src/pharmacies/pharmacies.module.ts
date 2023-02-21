@@ -5,10 +5,11 @@ import { Pharmacy } from './entities/pharmacy.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { MedicinesService } from 'src/medicines/medicines.service';
+import { Medicine } from 'src/medicines/entities/medicine.entity';
 
 @Module({
   imports:[
-    TypeOrmModule.forFeature([ Pharmacy ]),
+    TypeOrmModule.forFeature([ Pharmacy, Medicine ]),
     PassportModule,
   ],
   controllers: [ PharmaciesController ],

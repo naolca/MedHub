@@ -108,6 +108,7 @@ export class MedicinesController {
     @Query('brandname') brandName: string,
     @Body('quantity') quantity: number,
   ) {
+    console.log(pharmacyId, medicineId, brandName, quantity);
     return this.medicinesService.updateQuantity(
       pharmacyId,
       medicineId,

@@ -8,9 +8,6 @@ export class CreatePharmacyDto {
     @IsNotEmpty()
     pharmacyName: string;
 
-    @IsString()
-    @IsNotEmpty()
-    name:string
     @IsNumber()
     @IsNotEmpty()
     pharmaTinNo:number
