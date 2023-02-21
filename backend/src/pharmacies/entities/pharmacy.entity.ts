@@ -32,7 +32,9 @@ export class Pharmacy {
   @OneToMany(() => Employee, employee => employee.pharmacy)
   reservations: Reservation[];
 
-  @ManyToMany(() => Medicine, medicine => medicine.pharmacies)
+  @ManyToMany(() => Medicine, medicine => medicine.pharmacies, {
+    eager: true
+  })
   @JoinTable()
   medicines: Medicine[];
 
