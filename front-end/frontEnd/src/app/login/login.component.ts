@@ -19,6 +19,7 @@ import { LoginService } from '../service/login.service';
 })
 export class LoginComponent {
   public loginForm: FormGroup;
+  authenticated: any;
 
   constructor(
     private http: HttpClient,
@@ -34,13 +35,35 @@ export class LoginComponent {
   }
 
   //function to run when the form on the login page is submitted
-  onSubmit() {
-    let authenticated = this.loginService.login(
-      this.loginForm.value.ID,
-      this.loginForm.value.username,
-      this.loginForm.value.password
-    );
+  onSubmit(role: string) {
+    this.loginService
+      .login(
+        role,
+        this.loginForm.value.ID,
+        this.loginForm.value.username,
+        this.loginForm.value.password
+      )
+      .subscribe(
+        (response: any) => {
+          this.authenticated = response;
+          // console.log(this.authenticated);
+          if (this.authenticated.hasOwnProperty('accessToken')) {
+            localStorage.clear();
+            localStorage.setItem('token', response.accessToken);
+            if (role == 'employees') {
+              this.router.navigate(['/managersPage']);
+            } else {
+              this.router.navigate(['/adminHomePage']);
+            }
+          } else {
+            alert('Response does not contain an accessToken key');
+          }
+        },
+        (error) => {
+          alert('username or password is incorrect,please try again');
+        }
+      );
+
     // console.log('form submitted');
-    console.log(authenticated);
   }
 }

@@ -11,7 +11,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./home-body.component.css'],
 })
 export class HomeBodyComponent {
-  value: any[];
+  value: any;
   constructor(
     protected myService: MyDataService,
     private http: HttpClient,

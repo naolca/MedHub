@@ -6,26 +6,15 @@ import { FormControl } from '@angular/forms';
   providedIn: 'root',
 })
 export class LoginService {
+  url: string = 'http';
   constructor(private http: HttpClient) {}
 
-  login(ID: string, username: string, password: string) {
-    return this.http
-      .post('http://192.168.46.251:3000/administrators/login', {
-        ID,
-        username,
-        password,
-      })
-      .subscribe((response) => {
-        console.log(response);
-      });
-
-    // if (username == 'firaol' && password == '1014') {
-    //   localStorage.clear();
-    //   localStorage.setItem(ID, ID);
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+  login(role: string, pharmacyId: number, username: string, password: string) {
+    return this.http.post('http://10.6.250.17:3000/' + role + '/signin', {
+      pharmacyId,
+      username,
+      password,
+    });
   }
 }
 

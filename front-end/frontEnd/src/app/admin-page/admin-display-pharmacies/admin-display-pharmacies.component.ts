@@ -10,7 +10,7 @@ import { GetPharmaciesService } from 'src/app/service/get-pharmacies.service';
 })
 export class AdminDisplayPharmaciesComponent implements OnInit {
   data: any;
-  pharmacies: any[];
+  pharmacies: any;
 
   constructor(
     private http: HttpClient,
@@ -21,7 +21,9 @@ export class AdminDisplayPharmaciesComponent implements OnInit {
     //  this.getPharmaciesService.getPharmacies().subscribe((response:any[]) => {
     //   this.pharmacies=response;
     //  })
-    this.pharmacies = this.getPharmaciesService.getPharmacies();
+    this.getPharmaciesService.getPharmacies().subscribe((response) => {
+      this.pharmacies = response;
+    });
   }
   getPharmacies() {
     // // this.http.get(`http://localhost:3000?q=${value}`).subscribe((data: any) => {

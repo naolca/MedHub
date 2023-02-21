@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UpdateMedicineService {
-  url: string = 'http://localhost3000/';
+  url: string = 'http://localhost3000';
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +26,7 @@ export class UpdateMedicineService {
         genericName: genericName,
         brandName: brandName,
         batchNumber: batchNumber,
-        ammount: ammount,
+        quantity: ammount,
         receivingAddress: receivingAddress,
         storageConditions: storageConditions,
         expiryDate: expiryDate,
@@ -37,10 +37,21 @@ export class UpdateMedicineService {
 
   //method that handles the situation when a manager or employee wants to update the amount of the medicine in the pharmacy stock
 
-  updateStock(genericName: string, ammount: number) {
-    this.http.patch(
-      this.url,
-      JSON.stringify({ genericName: genericName, ammount: ammount })
+  updateStock(
+    brandName: string,
+    ammount: number,
+    medID: number,
+    pharmaID: number
+  ) {
+    return this.http.patch(
+      this.url +
+        '/medicines/' +
+        pharmaID +
+        '/' +
+        medID +
+        '?brandname=' +
+        brandName,
+      JSON.stringify({ genericName: brandName, quantity: ammount })
     );
   }
 }
