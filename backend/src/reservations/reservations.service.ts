@@ -24,7 +24,7 @@ export class ReservationsService {
   // needs to be refactored since the schema has changed !!!
   async create(createReservationDto: CreateReservationDTO): Promise<{}> {
     const reservation = new Reservation();
-    reservation.pharmacyId = createReservationDto.pharmacyId;
+    reservation.pharmacy = createReservationDto.pharmacyId;
     reservation.phoneNumber = createReservationDto.phoneNumber;
     const reserved= await this.reservationsRepository.save(reservation);
     if (reserved){
