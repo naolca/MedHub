@@ -7,6 +7,7 @@ import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
 import { AuthGuard } from '@nestjs/passport';
 import { GetPharmacy } from 'src/employees/get-pharmacy.decorator';
 import { PassportModule } from '@nestjs/passport';
+import { EmployeeJwtAuthGuard } from 'src/employees/jwt/employee-jwt-auth.guard';
 
 @Controller('medicines')
 export class MedicinesController {
@@ -14,8 +15,9 @@ export class MedicinesController {
 
 
   //getmedicineByName
-  @Get()
-  findMedicineByName(@Query('medname') medname: string) {
+  // http://localhost:3000/medicines/<:medname>
+  @Get('/:medname')
+  findMedicineByName(@Param('medname') medname: string) {
     return this.medicinesService.findMedicineByName(medname);
   }
 
@@ -27,6 +29,7 @@ export class MedicinesController {
    * @returns A promise that resolves to a list of medicines.
    */
   @Get()
+  @UseGuards(EmployeeJwtAuthGuard)
   async getMedicines(@Query() filterDto: GetMedicinesFilterDto): Promise<Medicine[]> {
     // If no filtering string was provided, return all medicines. Else, return the filtered medicines.
     if (!Object.keys(filterDto).length) {
@@ -36,6 +39,7 @@ export class MedicinesController {
     return this.medicinesService.getFilteredMedicines(filterDto);
   }
 
+  // http://localhost:3000/medicines
   /**
    * Gets the medicine with the given ID.
    * 
@@ -55,7 +59,7 @@ export class MedicinesController {
    * @returns A promise that resolves to the newly created medicine.
    */
   @Post()
-  // @UseGuards(AuthGuard())
+  @UseGuards(EmployeeJwtAuthGuard)
   async createMedicine(
     @Body() createMedicineDto: CreateMedicineDto,
     @GetPharmacy() pharmacy: Pharmacy
@@ -66,6 +70,7 @@ export class MedicinesController {
 
   // http://localhost:3000/medicines/<:pharmacyId>/medicines/<:medicineId>
 
+  @UseGuards(EmployeeJwtAuthGuard)
   @Post(':pharmacyId/medicines/:medicineId')
   async addMedicineToPharmacy(
     @Param('pharmacyId', ParseIntPipe) pharmacyId: number,
@@ -87,6 +92,7 @@ export class MedicinesController {
 
   // http://localhost:3000/medicines/:<pharmacyId>/medicines
 
+  @UseGuards(EmployeeJwtAuthGuard)
   @Get(':pharmacyId/medicines')
   async getMedicinesByPharmacyId(@Param('pharmacyId') pharmacyId: number): Promise<Medicine[]> {
     return this.medicinesService.getMedicinesByPharmacyId(pharmacyId);

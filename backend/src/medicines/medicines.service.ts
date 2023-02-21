@@ -146,10 +146,16 @@ export class MedicinesService {
       // used in the search of nearest pharmacies
       async findMedicineByName(medicineName:string){
 
-      return await this.medicineRepository
+      const medicine: Medicine = await this.medicineRepository
       .createQueryBuilder('medicine')
       .where('LOWER(medicine.genericName) = LOWER(:medicineName)', { medicineName })
       .getOne();
+      
+      if (!medicine) {
+        throw new NotFoundException(`Nothing was found with that key.`);
+      }
+    
+      return medicine;
       
       }
 
