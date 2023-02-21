@@ -78,8 +78,6 @@ export class MedicinesService {
             medicine = await this.getFilteredMedicines( { key: createMedicineDto.brandName } )[0];
         }
 
-        medicine.addPharmacy(pharmacy);
-
         return medicine;
     }
 

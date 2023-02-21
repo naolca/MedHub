@@ -17,7 +17,6 @@ export class PharmaciesService {
     const pharmacy=new Pharmacy();
 
     pharmacy.pharmacyName=createPharmacyDto.pharmacyName;
-    pharmacy.name=createPharmacyDto.name;
     pharmacy.pharmacyTinNo=createPharmacyDto.pharmaTinNo;
     pharmacy.branchNum=createPharmacyDto.branchNum;
     pharmacy.latitude=createPharmacyDto.latitude;

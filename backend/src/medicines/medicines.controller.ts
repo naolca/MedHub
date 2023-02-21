@@ -10,15 +10,15 @@ import { PassportModule } from '@nestjs/passport';
 
 @Controller('medicines')
 export class MedicinesController {
-  constructor(private readonly medicinesService: MedicinesService) {}
+  constructor(private readonly medicinesService: MedicinesService) { }
 
 
-   //getmedicineByName
-   @Get()
-   findMedicineByName(@Query('medname') medname:string){
-     return this.medicinesService.findMedicineByName(medname);
-   }
-   
+  //getmedicineByName
+  @Get()
+  findMedicineByName(@Query('medname') medname: string) {
+    return this.medicinesService.findMedicineByName(medname);
+  }
+
   /**
    * Gets all medicines matching the filtering criteria.
    * 
@@ -27,7 +27,7 @@ export class MedicinesController {
    * @returns A promise that resolves to a list of medicines.
    */
   @Get()
-  async getMedicines(@Query() filterDto: GetMedicinesFilterDto): Promise<Medicine[]>{
+  async getMedicines(@Query() filterDto: GetMedicinesFilterDto): Promise<Medicine[]> {
     // If no filtering string was provided, return all medicines. Else, return the filtered medicines.
     if (!Object.keys(filterDto).length) {
       return this.medicinesService.getAllMedicines();
@@ -59,20 +59,20 @@ export class MedicinesController {
   async createMedicine(
     @Body() createMedicineDto: CreateMedicineDto,
     @GetPharmacy() pharmacy: Pharmacy
-    ): Promise<Medicine> {
+  ): Promise<Medicine> {
     return await this.medicinesService.createMedicine(createMedicineDto, pharmacy);
   }
 
 
   // http://localhost:3000/medicines/<:pharmacyId>/medicines/<:medicineId>
-  
+
   @Post(':pharmacyId/medicines/:medicineId')
   async addMedicineToPharmacy(
     @Param('pharmacyId', ParseIntPipe) pharmacyId: number,
     @Param('medicineId', ParseIntPipe) medicineId: number,
     @Body() createMedicineDto: CreateMedicineDto,
   ): Promise<void> {
-    
+
     // const medicine=await this.medicinesService.getMedicineById(medicineId);
     await this.medicinesService.addMedicineToPharmacy(
       pharmacyId,
@@ -83,17 +83,17 @@ export class MedicinesController {
   }
 
 
-// I think this controller should be in the pharmacy ....... 
+  // I think this controller should be in the pharmacy ....... 
 
-// http://localhost:3000/medicines/:<pharmacyId>/medicines
+  // http://localhost:3000/medicines/:<pharmacyId>/medicines
 
   @Get(':pharmacyId/medicines')
   async getMedicinesByPharmacyId(@Param('pharmacyId') pharmacyId: number): Promise<Medicine[]> {
-      return this.medicinesService.getMedicinesByPharmacyId(pharmacyId);
-}
+    return this.medicinesService.getMedicinesByPharmacyId(pharmacyId);
+  }
 
-//update quantity 
-// http://localhost:3000/medicines/:pharmacyId/:medicineId?brandname=:brandName
+  //update quantity 
+  // http://localhost:3000/medicines/:pharmacyId/:medicineId?brandname=:brandName
 
   @Patch(':pharmacyId/:medicineId')
   async updateQuantity(
@@ -108,8 +108,8 @@ export class MedicinesController {
       quantity,
       brandName
     );
-}
+  }
 
- 
+
 
 }

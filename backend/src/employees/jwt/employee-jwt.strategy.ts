@@ -26,7 +26,7 @@ export class EmployeeJwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: EmployeeJwtPayload): Promise<Employee> {
     const { username, pharmacyId } = payload;
     const user: Employee = await this.employeeRepository.findOne({ where: { username }});
-    const pharmacy: Pharmacy = await this.pharmaciesService.getpharmacyById( pharmacyId );
+    const pharmacy: Pharmacy = await this.pharmaciesService.findOne( pharmacyId );
 
     if (!user || !user.checkPharmacy(pharmacy)) {
       throw new UnauthorizedException(`Hello world!`);

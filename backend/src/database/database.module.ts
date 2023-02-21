@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Administrator } from 'src/administrators/entities/administrator.entity';
 import { Employee } from 'src/employees/entities/employee.entity';
 import { Medicine } from 'src/medicines/entities/medicine.entity';
+import { PharmacyMedicine } from 'src/medicines/entities/pharmacy-medicine.entity';
 import { Pharmacy } from 'src/pharmacies/entities/pharmacy.entity';
 import { Reservation } from 'src/reservations/entities/reservation.entity';
 
@@ -21,6 +22,7 @@ import { Reservation } from 'src/reservations/entities/reservation.entity';
         Employee,
         Administrator,
         Reservation,
+        PharmacyMedicine,
       ],
       synchronize: true,
     }),

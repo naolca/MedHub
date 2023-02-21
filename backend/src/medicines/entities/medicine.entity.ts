@@ -28,25 +28,13 @@ export class Medicine {
   expiryDate: string;
 
   @OneToMany(() => Reservation, reservation => reservation.medicine)
-    reservations: Reservation[];
+  reservations: Reservation[];
 
- @OneToMany(() => PharmacyMedicine, pharmacyMedicine => pharmacyMedicine.medicine)
-    pharmacyMedicines: PharmacyMedicine[];
-
-  addPharmacy(pharmacy: Pharmacy) {
-        if (!this.pharmacies) {
-            this.pharmacies = new Array<Pharmacy>();
-        }
-
-        this.pharmacies.push(pharmacy);
-    }
-  @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines)
-  @JoinTable()
-  pharmacies: Pharmacy[];
-
+  @OneToMany(() => PharmacyMedicine, pharmacyMedicine => pharmacyMedicine.medicine, { eager: true })
+  pharmacyMedicines: PharmacyMedicine[];
 }
 
-  
+
 
 
 // import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";

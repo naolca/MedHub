@@ -29,7 +29,7 @@ export class EmployeesService {
     const employee: Employee = new Employee();
     
     
-    employee.pharmacy = await this.pharmaciesService.getpharmacyById(createEmployeeDto.pharmacyId);
+    employee.pharmacy = await this.pharmaciesService.findOne(createEmployeeDto.pharmacyId);
     if (!employee.pharmacy) {
       throw new NotFoundException(`A pharmacy by that ID doesn't exist`);
     }
@@ -57,7 +57,7 @@ export class EmployeesService {
     const { username, password, pharmacyId } = employeeCredentialsDto;
 
     const employee: Employee = await this.employeesRepository.findOne({ where: { username } });
-    const pharmacy: Pharmacy = await this.pharmaciesService.getpharmacyById( pharmacyId );
+    const pharmacy: Pharmacy = await this.pharmaciesService.findOne( pharmacyId );
 
     if ( employee && pharmacy ) {
       if (! await employee.checkPassword( password )) {

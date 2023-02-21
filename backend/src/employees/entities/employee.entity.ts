@@ -32,6 +32,7 @@ export class Employee extends BaseEntity {
     pharmacy: Pharmacy;
 
     checkPharmacy(pharmacy: Pharmacy): boolean {
+        console.log(pharmacy, this);
         if (pharmacy && Array.isArray(pharmacy.employees)) {
             for (let i = 0; i < pharmacy.employees.length; i++) {
                 if ( pharmacy.employees[i].id === this.id ) {
