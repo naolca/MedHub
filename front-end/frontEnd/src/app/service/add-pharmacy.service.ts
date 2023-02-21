@@ -15,15 +15,12 @@ export class AddPharmacyService {
     latitude: number,
     longitude: number
   ) {
-    this.http.post(
-      this.API.api,
-      JSON.stringify({
-        pharmacyName: pharmacyName,
-        pharmaTinNo: pharmaTinNo,
-        branchNum: branchNum,
-        latitude: latitude,
-        longitude: longitude,
-      })
-    );
+    return this.http.post(this.API.api + 'pharmacies', {
+      pharmacyName: pharmacyName,
+      pharmaTinNo: pharmaTinNo,
+      branchNum: branchNum,
+      latitude: latitude,
+      longitude: longitude,
+    });
   }
 }

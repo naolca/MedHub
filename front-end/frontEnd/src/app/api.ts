@@ -1,3 +1,3 @@
 export class API {
-  public api = 'http://10.6.250.218:3000/';
+  public api = 'http://192.168.0.187:3000/';
 }

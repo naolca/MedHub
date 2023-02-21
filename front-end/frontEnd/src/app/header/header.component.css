@@ -1,22 +1,15 @@
-
 * {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
+  background-color: rgb(85, 189, 202);
   box-sizing: border-box;
 }
 
-.header{
-  background-image: linear-gradient(
-    to right,
-    #52b3f8,
-    #37c7f3,
-    #1ab3b8,
-    #15bacd
-  );
+.header {
   margin-bottom: 50px;
 }
-.nav1:hover{
+.nav1:hover {
   color: rgba(11, 53, 100, 0.774);
 }
 a {
@@ -25,6 +18,7 @@ a {
 }
 li {
   list-style: none;
+  font-size: 18px;
 }
 input {
   outline: none;
@@ -59,11 +53,70 @@ input {
   font-weight: 400;
   font-size: 1.1rem;
 }
-@media only screen and (min-width: 681px) and (max-width: 800px){
-  .header{
-    width: fit-content;
-  }
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 20px;
 }
 
+.logo a {
+  color: black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
 
+.nav-links {
+  display: flex;
+  justify-content: end;
+  gap: 5%;
+  width: 50%;
+}
 
+.nav-links li a {
+  color: black;
+  text-decoration: none;
+  justify-content: end;
+  margin-right: 15px;
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+
+.burger .line {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .burger {
+    display: block;
+  }
+
+  .show-nav-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 1;
+
+    padding: 20px;
+  }
+
+  .show-nav-links li {
+    text-align: center;
+    margin: 10px 0;
+  }
+}

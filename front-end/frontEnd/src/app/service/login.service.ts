@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { API } from '../api';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,10 @@ export class LoginService {
       username,
       password,
     });
+  }
+
+  logout() {
+    localStorage.clear();
   }
 }
 

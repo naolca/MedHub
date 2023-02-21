@@ -2,17 +2,17 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">medicine Name</th>
+      <th scope="col">medicine id</th>
+      <th scope="col">generic Name/th></th>
       <th scope="col">batch no</th>
-      <th scope="col">amount</th>
       <!-- <th scope="col">managers name</th> -->
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let medicine of medicines">
-      <th scope="row">{{ medicine.name }}</th>
-      <td>{{ medicine.pharmaTinNo }}</td>
-      <td>{{ medicine.branchNum }}</td>
+      <th scope="row">{{ medicine.id }}</th>
+      <td>{{ medicine.genericName }}</td>
+      <td>{{ medicine.batchNumber }}</td>
       <!-- <td>Fkrnew Birhanu</td> -->
     </tr>
   </tbody>

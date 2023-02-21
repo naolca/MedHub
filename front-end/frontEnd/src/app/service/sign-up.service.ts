@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { API } from '../api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SignUpService {
-
-  constructor() { }
+  constructor() {}
 }

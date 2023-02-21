@@ -36,19 +36,23 @@ export class AddPharmacyFormComponent {
   }
 
   onSubmit() {
-    let addedPharmacy = this.addPharmacyService.addPharmacy(
-      this.loginForm.value.pharmacyName,
-      this.loginForm.value.pharmaTinNo,
-      this.loginForm.value.branchNum,
-      this.loginForm.value.latitude,
-      this.loginForm.value.longitude
-    );
-    console.log([
-      this.loginForm.value.pharmacyName,
-      this.loginForm.value.pharmaTinNo,
-      this.loginForm.value.branchNum,
-      this.loginForm.value.latitude,
-      this.loginForm.value.longitude,
-    ]);
+    this.addPharmacyService
+      .addPharmacy(
+        this.loginForm.value.pharmacyName,
+        this.loginForm.value.pharmaTinNo,
+        this.loginForm.value.branchNum,
+        this.loginForm.value.latitude,
+        this.loginForm.value.longitude
+      )
+      .subscribe((response) => {
+        console.log(response);
+      });
+    // console.log([
+    //   this.loginForm.value.pharmacyName,
+    //   this.loginForm.value.pharmaTinNo,
+    //   this.loginForm.value.branchNum,
+    //   this.loginForm.value.latitude,
+    //   this.loginForm.value.longitude,
+    // ]);
   }
 }

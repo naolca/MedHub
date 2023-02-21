@@ -12,7 +12,9 @@ export class DisplayMedicinesComponent implements OnInit {
   constructor(private myService: MyDataService) {}
 
   ngOnInit(): void {
-    this.medicines = this.myService.getMedicines();
-    // console.log(this.medicines);
+    this.myService.getMedicines().subscribe((response) => {
+      this.medicines = response;
+      console.log(this.medicines);
+    });
   }
 }

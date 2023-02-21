@@ -35,11 +35,15 @@ export default class UpdateStockComponent {
 
   //method to be called when the update medicine form is submitted
   onSubmit() {
-    return this.updateMedicineService.updateStock(
-      this.updateForm.value.genericName,
-      this.updateForm.value.ammount,
-      this.updateForm.value.medID,
-      this.updateForm.value.pharmaID
-    );
+    return this.updateMedicineService
+      .updateStock(
+        this.updateForm.value.brandName,
+        this.updateForm.value.ammount,
+        this.updateForm.value.medID,
+        this.updateForm.value.pharmaID
+      )
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 }

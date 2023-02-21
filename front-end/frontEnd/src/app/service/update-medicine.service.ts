@@ -20,7 +20,7 @@ export class UpdateMedicineService {
     pharmacyId: number
   ) {
     this.http.post(
-      this.API.api,
+      this.API.api + 'pharmacies',
       JSON.stringify({
         genericName: genericName,
         brandName: brandName,
@@ -44,13 +44,13 @@ export class UpdateMedicineService {
   ) {
     return this.http.patch(
       this.API.api +
-        '/medicines/' +
+        'medicines/' +
         pharmaID +
         '/' +
         medID +
         '?brandname=' +
         brandName,
-      JSON.stringify({ genericName: brandName, quantity: ammount })
+      { quantity: ammount }
     );
   }
 }

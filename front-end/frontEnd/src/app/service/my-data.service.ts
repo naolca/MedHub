@@ -16,8 +16,8 @@ export class MyDataService {
   medicines: any;
   constructor(private http: HttpClient, public API: API) {}
 
-  getMedicines(): object {
-    return this.medicines;
+  getMedicines() {
+    return this.http.get(this.API.api + 'medicines');
   }
   //the following method hanldes the general search made by the name of the medicine
   searchMedicines(): any {
