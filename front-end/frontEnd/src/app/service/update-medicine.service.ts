@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { API } from '../api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UpdateMedicineService {
-  url: string = 'http://localhost3000';
-
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public API: API) {}
 
   //method that takes care of add medicine functionality
   addMedicine(
@@ -21,7 +20,7 @@ export class UpdateMedicineService {
     pharmacyId: number
   ) {
     this.http.post(
-      this.url,
+      this.API.api,
       JSON.stringify({
         genericName: genericName,
         brandName: brandName,
@@ -44,7 +43,7 @@ export class UpdateMedicineService {
     pharmaID: number
   ) {
     return this.http.patch(
-      this.url +
+      this.API.api +
         '/medicines/' +
         pharmaID +
         '/' +

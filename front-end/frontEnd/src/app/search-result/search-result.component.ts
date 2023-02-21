@@ -50,9 +50,7 @@ export class SearchResultComponent implements OnInit {
   //method to handle the redirection to the details page
   toDetail(detailID: number) {
     this.route.navigate([
-      '/medicineDetails',
-      detailID,
-      this.myService.searchKey,
+      '/medicineDetails/' + detailID + '/' + this.myService.searchKey,
     ]);
   }
 }

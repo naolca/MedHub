@@ -37,6 +37,7 @@ import UpdateStockComponent from './manager-page/update-stock/update-stock.compo
 import { MedicineDetailComponent } from './medicine-detail/medicine-detail.component';
 import { DisplayMedicinesComponent } from './display-medicines/display-medicines.component';
 import { AuthInterceptor } from './auth-interceptor';
+import { API } from './api';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -82,6 +83,10 @@ const routes: Routes = [
     path: 'displayMedicines',
     component: DisplayMedicinesComponent,
   },
+  {
+    path: 'displayPharmacies',
+    component: AdminDisplayPharmaciesComponent,
+  },
 ];
 
 @NgModule({
@@ -126,6 +131,7 @@ const routes: Routes = [
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    API,
   ],
   bootstrap: [AppComponent],
 })

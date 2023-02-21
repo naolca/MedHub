@@ -40,17 +40,22 @@ export class MedicineDetailComponent implements OnInit {
   onReserve(medId: number, pharmaID: number, phoneNumber: string) {
     this.reservationService
       .reserveMedicine(medId, pharmaID, phoneNumber)
-      .subscribe((response) => {
-        this.status = response;
-        console.log(this.status.status);
+      .subscribe(
+        (response) => {
+          this.status = response;
+          console.log(this.status.status);
 
-        // if (this.status.status == 'reserved') {
-        //   alert('you have successfully reserved this medicine');
-        // } else {
-        //   alert(
-        //     'not successfully reserved. please consider trying again later'
-        //   );
-        // }
-      });
+          if (this.status.status === 'reserved') {
+            alert('you have successfully reserved this medicine');
+          } else {
+            alert('invalid number,please try again');
+          }
+        },
+        (error) => {
+          alert(
+            'not successfully reserved. please consider trying again later'
+          );
+        }
+      );
   }
 }

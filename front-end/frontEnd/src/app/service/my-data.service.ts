@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable, of } from 'rxjs';
+import { API } from '../api';
 
 @Injectable({
   providedIn: 'root',
@@ -12,15 +13,8 @@ export class MyDataService {
   latitude: number;
   longitude: number;
 
-  medicines: any = [
-    { name: 'ibuprofine', price: 20, pharmacy: 'anbasa', ID: 1 },
-    { name: 'ibuprofine', price: 20, pharmacy: 'lucy', ID: 2 },
-    { name: 'amoxacyline', price: 40, pharmacy: 'axum', ID: 5 },
-    { name: 'amoprazole', price: 25, pharmacy: 'markos', ID: 6 },
-    { name: 'diclofenac', price: 10, pharmacy: 'salam', ID: 7 },
-    { name: 'diclofenac', price: 10, pharmacy: 'hora', ID: 3 },
-  ];
-  constructor(private http: HttpClient) {}
+  medicines: any;
+  constructor(private http: HttpClient, public API: API) {}
 
   getMedicines(): object {
     return this.medicines;
@@ -34,7 +28,8 @@ export class MyDataService {
     });
 
     return this.http.get(
-      'http://10.6.250.218:3000/pharmacies?medicine=' +
+      this.API.api +
+        'pharmacies?medicine=' +
         this.searchKey +
         '&latitude=' +
         this.latitude +
@@ -62,11 +57,9 @@ export class MyDataService {
   //results page
   searchMedicineById(detailID: number) {
     console.log(this.searchKey);
-    return this.http.get('http://10.6.250.218:3000/pharmacies/' + detailID);
+    return this.http.get(this.API.api + 'pharmacies/' + detailID);
   }
   searchMedDetails(medName: string) {
-    return this.http.get(
-      'http://10.6.250.218:3000/medicines?medname=' + medName
-    );
+    return this.http.get(this.API.api + 'medicines?medname=' + medName);
   }
 }

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { API } from '../api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GetPharmaciesService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, public API: API) {}
 
   pharmacies: any[] = [
     {
@@ -44,10 +45,10 @@ export class GetPharmaciesService {
       longitude: 100,
     },
   ];
-  url: string = 'http://192.168.173.2:3000/medicines';
+  url: string = this.API.api + 'pharmacies/all';
 
   getPharmacies(): any {
     // return this.http.get(this.url);
-    return this.http.get('http://192.168.0.187:3000/medicines/1');
+    return this.http.get(this.url);
   }
 }
