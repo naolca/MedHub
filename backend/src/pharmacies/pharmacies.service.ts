@@ -17,6 +17,7 @@ export class PharmaciesService {
     const pharmacy=new Pharmacy();
 
     pharmacy.pharmacyName=createPharmacyDto.pharmacyName;
+    pharmacy.name=createPharmacyDto.name;
     pharmacy.pharmacyTinNo=createPharmacyDto.pharmaTinNo;
     pharmacy.branchNum=createPharmacyDto.branchNum;
     pharmacy.latitude=createPharmacyDto.latitude;
@@ -29,46 +30,42 @@ export class PharmaciesService {
     return await this.pharmacyRepository.find();
   }
 
-  sortPharmacies(pharmacies: Pharmacy[], target: {latitude: number, longitude: number}) {
-    const { latitude, longitude } = target;
-
-    const earthRadius = 6371;
-    const radianLat = (Math.PI / 180) * latitude;
-    const radianLng = (Math.PI / 180) * longitude;
-
-    const sortedPharmacies = pharmacies
-        .map(pharmacy => {
-          const pharmacyLat = (Math.PI / 180) * pharmacy.latitude;
-          const pharmacyLng = (Math.PI / 180) * pharmacy.longitude;
-  
-          const distance =
-            earthRadius *
-            Math.acos(
-              Math.cos(radianLat) *
-                Math.cos(pharmacyLat) *
-                Math.cos(pharmacyLng - radianLng) +
-                Math.sin(radianLat) * Math.sin(pharmacyLat),
-            );
-  
-          return { ...pharmacy, distance };
-        })
-        .sort((a, b) => a.distance - b.distance);
-  
-      return sortedPharmacies;
-  }
-
   async findNearestPharmacies(
         latitude: number,
         longitude: number,
-        limit = 5,
+        pharmacies:Pharmacy[],
+        limit = 8,
       ): Promise<Pharmacy[]> {
+
+        const earthRadius = 6371;
+        const radianLat = (Math.PI / 180) * latitude;
+        const radianLng = (Math.PI / 180) * longitude;
     
-        const pharmacies = await this.pharmacyRepository.find();
-        return this.sortPharmacies(pharmacies, { latitude, longitude });
+        // const pharmacies = await this.pharmacyRepository.find();
+    
+        const sortedPharmacies = pharmacies
+          .map(pharmacy => {
+            const pharmacyLat = (Math.PI / 180) * pharmacy.latitude;
+            const pharmacyLng = (Math.PI / 180) * pharmacy.longitude;
+    
+            const distance =
+              earthRadius *
+              Math.acos(
+                Math.cos(radianLat) *
+                  Math.cos(pharmacyLat) *
+                  Math.cos(pharmacyLng - radianLng) +
+                  Math.sin(radianLat) * Math.sin(pharmacyLat),
+              );
+    
+            return { ...pharmacy, distance };
+          })
+          .sort((a, b) => a.distance - b.distance);
+    
+        return sortedPharmacies.slice(0, limit);
   }
   
-  async findOne(pharmacyId: number): Promise<Pharmacy> {
-    return await this.pharmacyRepository.findOne( { where: { pharmacyId } } );
+  async findOne(id: number): Promise<Pharmacy> {
+    return await this.pharmacyRepository.findOne( { where: { id } } );
   }
 
   update(id: number, updatePharmacyDto: UpdatePharmacyDto) {
@@ -78,4 +75,30 @@ export class PharmaciesService {
   async remove(id: number) {
     return await this.pharmacyRepository.delete(id)
   }
+
+  async findNearestPharmacyWithDrug(medicineName: string, latitude: number, longitude: number): Promise<any> {
+    const pharmacies = await this.pharmacyRepository
+      .createQueryBuilder('pharmacy')
+      .leftJoin('pharmacy.pharmacyMedicines', 'pharmacy_medicine')
+      .leftJoin('pharmacy_medicine.medicine', 'medicine')
+      .where('LOWER(medicine.genericName) = LOWER(:medicineName)', { medicineName })
+      .andWhere('pharmacy_medicine.quantity > 0')
+      .getMany();
+    const nearest =await this.findNearestPharmacies(latitude,longitude,pharmacies)
+    return nearest;
+}
+
+// .createQueryBuilder('medicine')
+//           .leftJoinAndSelect('medicine.pharmacyMedicines', 'pharmacy_medicine')
+//           .leftJoinAndSelect('pharmacy_medicine.pharmacy', 'pharmacy')
+//           .where('pharmacy.id = :pharmacyId', { pharmacyId })
+//           .select([
+//             'medicine.genericName',
+//             'medicine.batchNumber',
+//             'medicine.storageConditions',
+//             'medicine.expiryDate',
+//             'pharmacy_medicine.brandname',
+//             'pharmacy_medicine.quantity'
+//           ])
+//           .getMany();
 }

@@ -1,33 +1,36 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtModule } from '@nestjs/jwt';
-import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt.strategy';
 import { EmployeesService } from './employees.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Employee } from './entities/employee.entity';
-import { EmployeesController } from './employees.controller';
 import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
+import { EmployeesController } from './employees.controller';
+import { EmployeeJwtStrategy } from './jwt/employee-jwt.strategy';
 
 @Module({
   imports: [
+    ConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: 'MedHub',
-      signOptions: {
-        expiresIn: 3600,
-      },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: "MedHub",
+        signOptions: {
+          expiresIn: 3600,
+        },
+      }),
     }),
     TypeOrmModule.forFeature([ Employee ]),
-    PharmaciesModule,
+    PharmaciesModule
+  ],
+  providers: [
+    EmployeesService, 
+    EmployeeJwtStrategy,
   ],
   controllers: [EmployeesController],
-  providers: [
-    EmployeesService,
-    JwtStrategy,
-  ],
-  exports: [
-    JwtStrategy,
-    PassportModule,
-  ],
+  exports: [ EmployeeJwtStrategy ],
 })
 export class EmployeesModule {}

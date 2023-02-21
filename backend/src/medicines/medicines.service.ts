@@ -6,13 +6,16 @@ import { Repository } from 'typeorm';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
 import { Medicine } from './entities/medicine.entity';
+import { PharmacyMedicine } from './entities/pharmacy-medicine.entity';
 
 @Injectable()
 export class MedicinesService {
     constructor(
-        @InjectRepository(Medicine)
-        private medicineRepository: Repository<Medicine>,
-        private pharmaciesService: PharmaciesService,
+    @InjectRepository(Medicine)
+    private readonly medicineRepository: Repository<Medicine>,
+    private readonly pharmaciesService: PharmaciesService,
+    @InjectRepository(PharmacyMedicine)
+    private readonly PharmacyMedicineRepository: Repository<PharmacyMedicine>,
     ) {}
 
     /**
@@ -27,18 +30,6 @@ export class MedicinesService {
         }
 
         return medicines;
-    }
-
-    async getMedicineByIdSorted(id: number, { latitude, longitude }): Promise<Medicine> {
-        const medicine = await this.medicineRepository.findOne({ where: { id } });
-
-        if (!medicine) {
-            throw new NotFoundException(`The requested medicine doesn't exist.`);
-        }
-
-        medicine.pharmacies = this.pharmaciesService.sortPharmacies(medicine.pharmacies, { latitude, longitude });
-        
-        return medicine;
     }
 
     async getMedicineById(id: number): Promise<Medicine> {
@@ -79,18 +70,89 @@ export class MedicinesService {
         medicine.genericName = createMedicineDto.genericName;
         medicine.brandName = createMedicineDto.brandName;
         medicine.batchNumber = createMedicineDto.batchNumber;
-        medicine.ammount = createMedicineDto.ammount;
         medicine.expiryDate = createMedicineDto.expiryDate;
         medicine.receivingAddress = createMedicineDto.receivingAddress;
         medicine.storageConditions = createMedicineDto.storageConditions;
 
-        let pharmacy_temp: Pharmacy = await this.pharmaciesService.findOne(createMedicineDto.pharmacyId);
-        
-
         if (! await this.medicineRepository.save(medicine) ) {
             medicine = await this.getFilteredMedicines( { key: createMedicineDto.brandName } )[0];
-            medicine.addPharmacy(pharmacy_temp);
         }
+
+        medicine.addPharmacy(pharmacy);
+
         return medicine;
     }
+
+
+    // add medicine to specific pharmacy
+    async addMedicineToPharmacy(
+        pharmacyId: number,
+        medicineId: number,
+        quantity: number,
+        brandName:string
+      ): Promise<{}> {
+        const pharmacy = await this.pharmaciesService.findOne(pharmacyId);
+        const medicine = await this.getMedicineById(medicineId);
+    
+        const inventory = new PharmacyMedicine();
+        inventory.quantity = quantity;
+        inventory.pharmacy = pharmacy;
+        inventory.medicine = medicine;
+        inventory.brandname=brandName;
+    
+        await this.PharmacyMedicineRepository.save(inventory);
+        return {"status": "successfully added"}
+      }
+
+      //get all medicine from a specific pharmacy 
+      async getMedicinesByPharmacyId(pharmacyId: number): Promise<Medicine[]> {
+        return await this.medicineRepository
+          .createQueryBuilder('medicine')
+          .leftJoinAndSelect('medicine.pharmacyMedicines', 'pharmacy_medicine')
+          .leftJoinAndSelect('pharmacy_medicine.pharmacy', 'pharmacy')
+          .where('pharmacy.id = :pharmacyId', { pharmacyId })
+          .select([
+            'medicine.genericName',
+            'medicine.batchNumber',
+            'medicine.storageConditions',
+            'medicine.expiryDate',
+            'pharmacy_medicine.brandname',
+            'pharmacy_medicine.quantity'
+          ])
+          .getMany();
+      }
+
+      // update quantity of a medicine with in a specific pharmacy 
+      async updateQuantity(
+        pharmacyId: number,
+        medicineId: number,
+        quantity: number,
+        brandName:string
+      ): Promise<PharmacyMedicine> {
+        const pharmacyMedicine = await this.PharmacyMedicineRepository.findOne({
+          where: {
+            pharmacy: { id: pharmacyId },
+            medicine: { id: medicineId },
+            brandname:brandName
+          }
+        });
+        if (!pharmacyMedicine) {
+          throw new Error('Pharmacy does not have this medicine in stock');
+        }
+        pharmacyMedicine.quantity = quantity;
+        return this.PharmacyMedicineRepository.save(pharmacyMedicine);
+      }
+
+
+
+      // used in the search of nearest pharmacies
+      async findMedicineByName(medicineName:string){
+
+      return await this.medicineRepository
+      .createQueryBuilder('medicine')
+      .where('LOWER(medicine.genericName) = LOWER(:medicineName)', { medicineName })
+      .getOne();
+      
+      }
+
 }

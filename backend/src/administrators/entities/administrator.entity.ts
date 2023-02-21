@@ -1,10 +1,9 @@
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 import * as bcrypt from "bcrypt";
 
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
-
 @Entity()
-@Unique([ "username" ])
-export class Administrator {
+@Unique(['username'])
+export class Administrator extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

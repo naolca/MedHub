@@ -4,6 +4,7 @@ import { PharmaciesController } from './pharmacies.controller';
 import { Pharmacy } from './entities/pharmacy.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
+import { MedicinesService } from 'src/medicines/medicines.service';
 
 @Module({
   imports:[
@@ -11,7 +12,7 @@ import { PassportModule } from '@nestjs/passport';
     PassportModule,
   ],
   controllers: [ PharmaciesController ],
-  providers: [ PharmaciesService ],
-  exports: [ PharmaciesService, ]
+  providers: [ PharmaciesService],
+  exports: [ PharmaciesService ]
 })
 export class PharmaciesModule {}

@@ -3,10 +3,14 @@ import { Unique } from "typeorm";
 
 @Unique([ "pharmacyTinNo", "pharmacyName" ])
 export class CreatePharmacyDto {
+
     @IsString()
     @IsNotEmpty()
     pharmacyName: string;
 
+    @IsString()
+    @IsNotEmpty()
+    name:string
     @IsNumber()
     @IsNotEmpty()
     pharmaTinNo:number

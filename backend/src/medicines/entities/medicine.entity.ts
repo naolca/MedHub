@@ -1,47 +1,96 @@
+// medicine.entity.ts
+import { PharmacyMedicine } from "./pharmacy-medicine.entity";
 import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";
 import { Reservation } from "src/reservations/entities/reservation.entity";
-import { Column, Entity, PrimaryGeneratedColumn, Unique, OneToMany, ManyToMany } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, Unique, OneToMany, ManyToMany, JoinTable } from "typeorm";
 
 @Entity()
-@Unique([ "brandName" ])
 export class Medicine {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    genericName: string;
+  @Column()
+  genericName: string;
 
-    @Column()
-    brandName: string;
+  @Column()
+  brandName: string;
 
-    @Column()
-    batchNumber: string;
+  @Column()
+  batchNumber: string;
 
-    @Column()
-    ammount: number;
+  @Column()
+  receivingAddress: string;
 
-    @Column()
-    receivingAddress: string;
+  @Column()
+  storageConditions: string;
 
-    @Column()
-    storageConditions: string;
+  @Column()
+  expiryDate: string;
 
-    @Column()
-    expiryDate: string;
-
-    @OneToMany(() => Reservation, reservation => reservation.medicine)
+  @OneToMany(() => Reservation, reservation => reservation.medicine)
     reservations: Reservation[];
 
-    @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines, {
-        eager: true
-    })
-    pharmacies: Pharmacy[];
+ @OneToMany(() => PharmacyMedicine, pharmacyMedicine => pharmacyMedicine.medicine)
+    pharmacyMedicines: PharmacyMedicine[];
 
-    addPharmacy(pharmacy: Pharmacy) {
+  addPharmacy(pharmacy: Pharmacy) {
         if (!this.pharmacies) {
             this.pharmacies = new Array<Pharmacy>();
         }
 
         this.pharmacies.push(pharmacy);
     }
+  @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines)
+  @JoinTable()
+  pharmacies: Pharmacy[];
+
 }
+
+  
+
+
+// import { Pharmacy } from "src/pharmacies/entities/pharmacy.entity";
+// import { Reservation } from "src/reservations/entities/reservation.entity";
+// import { Column, Entity, PrimaryGeneratedColumn, Unique, OneToMany, ManyToMany } from "typeorm";
+
+// @Entity()
+// @Unique([ "brandName" ])
+// export class Medicine {
+//     @PrimaryGeneratedColumn()
+//     id: number;
+
+//     @Column()
+//     genericName: string;
+
+//     @Column()
+//     brandName: string;
+
+//     @Column()
+//     batchNumber: string;
+
+//     @Column()
+//     ammount: number;
+
+//     @Column()
+//     receivingAddress: string;
+
+//     @Column()
+//     storageConditions: string;
+
+//     @Column()
+//     expiryDate: string;
+
+//     @OneToMany(() => Reservation, reservation => reservation.medicine)
+//     reservations: Reservation[];
+
+//     @ManyToMany(() => Pharmacy, pharmacy => pharmacy.medicines)
+//     pharmacies: Pharmacy[];
+
+//     addPharmacy(pharmacy: Pharmacy) {
+//         if (!this.pharmacies) {
+//             this.pharmacies = new Array<Pharmacy>();
+//         }
+
+//         this.pharmacies.push(pharmacy);
+//     }
+// }

@@ -1,10 +1,12 @@
 export class CreateMedicineDto {
+    id:number
     genericName: string;
     brandName: string;
     batchNumber: string;
-    ammount: number;
+    quantity: number;
     receivingAddress: string;
     storageConditions: string;
     expiryDate: string;
-    pharmacyId: number;
+    pharmacyName: string;
+    pharmacyLocation: number[];
 }

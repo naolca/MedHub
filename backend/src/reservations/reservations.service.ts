@@ -31,7 +31,8 @@ export class ReservationsService {
     reservation.addPharmacy(pharmacy);
     reservation.addMedicine(medicine);
 
-    this.reservationsRepository.save(reservation);
+    await this.reservationsRepository.save(reservation);
+    return {"status" : "reserved"}
   }
 
   // /*
@@ -60,13 +61,26 @@ export class ReservationsService {
   //   return await this.reservationsRepository.find({ where: { phoneNumber } });
   // }
  
+
+  
   // /**
   //  helps to send all reservation for a pharmacy with an id   
   // **/
-  // // Again, regressed since schema was changed
-  // async findByPharmacyId(pharmacyId: string): Promise<Reservation[]> {
-  //   return await this.reservationsRepository.find({ where: { pharmacyId } });
-  // }
+
+
+
+  async findByPharmacyId(pharmacyId: number): Promise<Reservation[]> {
+    return await this.reservationsRepository.find({
+      where: { pharmacy: { id: pharmacyId } },
+      join: {
+        alias: "reservation",
+        leftJoinAndSelect: {
+          medicine: "reservation.medicine"
+        }
+      }
+    });
+  }
+
   // /**
   //  helps to send all reservation for a medicine with an id   
   // **/

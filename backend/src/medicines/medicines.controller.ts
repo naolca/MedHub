@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, UseGuards } from '@nestjs/common';
 import { MedicinesService } from './medicines.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { GetMedicinesFilterDto } from './dto/get-medicines-filter.dto';
@@ -12,6 +12,13 @@ import { PassportModule } from '@nestjs/passport';
 export class MedicinesController {
   constructor(private readonly medicinesService: MedicinesService) {}
 
+
+   //getmedicineByName
+   @Get()
+   findMedicineByName(@Query('medname') medname:string){
+     return this.medicinesService.findMedicineByName(medname);
+   }
+   
   /**
    * Gets all medicines matching the filtering criteria.
    * 
@@ -37,33 +44,8 @@ export class MedicinesController {
    * @returns A promise that resolves to a medicine.
    */
   @Get('/:id')
-  async getMedicineByIdSorted(
-    @Param('id') id: number, 
-    @Query('latitude') latitude: number, 
-    @Query('longitude') longitude: number
-    ): Promise<Medicine> {
-
-    const medicine: Medicine = await this.medicinesService.getMedicineByIdSorted(id, { latitude, longitude });
-
-    console.log(medicine.pharmacies);
-    
-    return medicine;
-  }
-
-  /**
-   * Gets the medicine with the given ID.
-   * 
-   * @param id The id of the medicine needed.
-   * @throws {NotFoundException} if the medicine with the given ID was not found.
-   * @returns A promise that resolves to a medicine.
-   */
-  @Get('/:id')
   async getMedicineById(@Param('id') id: number): Promise<Medicine> {
-    const medicine: Medicine = await this.medicinesService.getMedicineById(id);
-
-    console.log(medicine.pharmacies);
-    
-    return medicine;
+    return await this.medicinesService.getMedicineById(id);
   }
 
   /**
@@ -73,12 +55,61 @@ export class MedicinesController {
    * @returns A promise that resolves to the newly created medicine.
    */
   @Post()
-  // @UseGuards(AuthGuard('jwt'))
+  // @UseGuards(AuthGuard())
   async createMedicine(
     @Body() createMedicineDto: CreateMedicineDto,
     @GetPharmacy() pharmacy: Pharmacy
     ): Promise<Medicine> {
     return await this.medicinesService.createMedicine(createMedicineDto, pharmacy);
   }
+
+
+  // http://localhost:3000/medicines/<:pharmacyId>/medicines/<:medicineId>
+  
+  @Post(':pharmacyId/medicines/:medicineId')
+  async addMedicineToPharmacy(
+    @Param('pharmacyId', ParseIntPipe) pharmacyId: number,
+    @Param('medicineId', ParseIntPipe) medicineId: number,
+    @Body() createMedicineDto: CreateMedicineDto,
+  ): Promise<void> {
+    
+    // const medicine=await this.medicinesService.getMedicineById(medicineId);
+    await this.medicinesService.addMedicineToPharmacy(
+      pharmacyId,
+      medicineId,
+      createMedicineDto.quantity,
+      createMedicineDto.brandName
+    );
+  }
+
+
+// I think this controller should be in the pharmacy ....... 
+
+// http://localhost:3000/medicines/:<pharmacyId>/medicines
+
+  @Get(':pharmacyId/medicines')
+  async getMedicinesByPharmacyId(@Param('pharmacyId') pharmacyId: number): Promise<Medicine[]> {
+      return this.medicinesService.getMedicinesByPharmacyId(pharmacyId);
+}
+
+//update quantity 
+// http://localhost:3000/medicines/:pharmacyId/:medicineId?brandname=:brandName
+
+  @Patch(':pharmacyId/:medicineId')
+  async updateQuantity(
+    @Param('pharmacyId') pharmacyId: number,
+    @Param('medicineId') medicineId: number,
+    @Query('brandname') brandName: string,
+    @Body('quantity') quantity: number,
+  ) {
+    return this.medicinesService.updateQuantity(
+      pharmacyId,
+      medicineId,
+      quantity,
+      brandName
+    );
+}
+
+ 
 
 }

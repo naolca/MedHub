@@ -1,29 +1,36 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './jwt.strategy';
-import { AdministratorsController } from './administrators.controller';
+import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PharmaciesModule } from 'src/pharmacies/pharmacies.module';
 import { AdministratorsService } from './administrators.service';
+import { AdministratorsController } from './administrators.controller';
 import { Administrator } from './entities/administrator.entity';
+import { AdministratorJwtStrategy } from './jwt/administrator-jwt.strategy';
 
 @Module({
   imports: [
+    ConfigModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: 'MedHub',
-      signOptions: {
-        expiresIn: 3600,
-      },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: "MedHub",
+        signOptions: {
+          expiresIn: 3600,
+        },
+      }),
     }),
     TypeOrmModule.forFeature([ Administrator ]),
+    PharmaciesModule
   ],
-  controllers: [AdministratorsController],
   providers: [
-    AdministratorsService,
-    JwtStrategy,
+    AdministratorsService, 
+    AdministratorJwtStrategy,
   ],
-  exports: [
-  ],
+  controllers: [ AdministratorsController ],
+  exports: [ AdministratorJwtStrategy ],
 })
 export class AdministratorsModule {}
